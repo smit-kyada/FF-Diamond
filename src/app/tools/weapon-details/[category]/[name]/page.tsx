@@ -118,7 +118,7 @@ const data: Record<string, { name: string }[]> = {
     if (!weapon) return <div>Weapon not found.</div>;
   
     // You can generate the image URL from name and category if it's predictable
-    const imageUrl = `/resources/weapons/${category.toLowerCase()}/${name.toLowerCase()}.png`;
+    const imageUrl = `/resources/weapons/${category.toLowerCase()}/${name.toUpperCase()}.png`;
   
     return (
       <WeaponDetailClient
