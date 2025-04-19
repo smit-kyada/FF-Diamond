@@ -1,0 +1,82 @@
+{
+  "launcher": [{ "name": "RGS50" }, { "name": "MGL140" }, { "name": "M79" }],
+  "machineGun": [
+    { "name": "GATLING" },
+    { "name": "M60" },
+    { "name": "M249" },
+    { "name": "KORD" }
+  ],
+  "subMachineGun": [
+    { "name": "CG15" },
+    { "name": "P90" },
+    { "name": "VECTOR" },
+    { "name": "THOMPSON" },
+    { "name": "MP40" },
+    { "name": "UMP" },
+    { "name": "MP5" },
+    { "name": "VSS" },
+    { "name": "MAC10" },
+    { "name": "BIZON" }
+  ],
+  "melee": [
+    { "name": "BASEBALLPOLE" },
+    { "name": "FFKNIFE" },
+    { "name": "KATANA" },
+    { "name": "MACHETE" },
+    { "name": "SICKLE" },
+    { "name": "PAN" }
+  ],
+  "rifle": [
+    { "name": "SHIELDGUN" },
+    { "name": "TREATMENTLASERGUN" },
+    { "name": "AN94" },
+    { "name": "XM8" },
+    { "name": "FAMAS" },
+    { "name": "M4A1" },
+    { "name": "AK47" },
+    { "name": "GROZA" },
+    { "name": "M14" },
+    { "name": "SCAR" },
+    { "name": "PLASMA" },
+    { "name": "AUG" },
+    { "name": "PARAFAL" },
+    { "name": "KINGFISHER" },
+    { "name": "G36" }
+  ],
+  "Pistol": [
+    { "name": "GATLING" },
+    { "name": "M60" },
+    { "name": "M249" },
+    { "name": "KORD" }
+  ],
+  "ShotGun": [
+    { "name": "GATLING" },
+    { "name": "M60" },
+    { "name": "M249" },
+    { "name": "KORD" }
+  ],
+  "Bow": [
+    { "name": "GATLING" },
+    { "name": "M60" },
+    { "name": "M249" },
+    { "name": "KORD" }
+  ],
+  "Sniper": [
+    { "name": "GATLING" },
+    { "name": "M60" },
+    { "name": "M249" },
+    { "name": "KORD" }
+  ],
+  "Projectiles": [
+    { "name": "GATLING" },
+    { "name": "M60" },
+    { "name": "M249" },
+    { "name": "KORD" }
+  ],
+  "MarksmanRifle": [
+    { "name": "GATLING" },
+    { "name": "M60" },
+    { "name": "M249" },
+    { "name": "KORD" }
+  ]
+}

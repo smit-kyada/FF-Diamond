@@ -1,0 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.maindiv {
+    height: auto !important;
+}
+
+@media (min-width: 550px) {
+    .container {
+        width: 360px;
+    }
+}

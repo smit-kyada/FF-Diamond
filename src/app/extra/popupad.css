@@ -1,0 +1,17 @@
+.Modal_close__iJfYM .Modal_closeIcon__Exj6U {
+    color: #fff;
+}
+
+.Modal_modal__MdNMi {
+    display: flex;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 1;
+    animation: Modal_showModal__kDIXS .4s forwards;
+    overflow: auto;
+    z-index: 999;
+    background-color: rgba(20, 20, 22, .5);
+}
