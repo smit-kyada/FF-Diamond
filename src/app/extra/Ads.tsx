@@ -1,6 +1,28 @@
+"use client";
+import { useEffect, useRef } from "react";
+
+declare global {
+  interface Window {
+    adsbygoogle: unknown[];
+  }
+}
+
 export default function Ads() {
+  const adRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    try {
+      if (typeof window !== "undefined") {
+        window.adsbygoogle = window.adsbygoogle || [];
+        window.adsbygoogle.push({});
+      }
+    } catch (e) {
+      console.error("Adsense error:", e);
+    }
+  }, []);
+
   return (
-    <div>
+    <div ref={adRef}>
       <ins
         className="adsbygoogle adbanner-customize"
         style={{ display: "block" }}
