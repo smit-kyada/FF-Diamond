@@ -1,0 +1,22 @@
+{
+    "name": "Free Diamonds",
+    "short_name": "Free Diamonds",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#ffffff",
+    "theme_color": "#0d6efd",
+    "description": "Free Diamonds For Free Fire",
+    "icons": [
+      {
+        "src": "/Diamond.png",
+        "type": "image/png",
+        "sizes": "192x192"
+      },
+      {
+        "src": "/Diamond.png",
+        "type": "image/png",
+        "sizes": "512x512"
+      }
+    ]
+  }
+  

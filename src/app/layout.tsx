@@ -44,6 +44,8 @@ export default function RootLayout({
           `,
           }}
         />
+
+        
       </head>
       <body className="body-bg">
         {/* Google Tag Manager noscript */}
