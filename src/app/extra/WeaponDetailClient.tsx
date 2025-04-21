@@ -20,7 +20,7 @@ export default function WeaponDetailClient({
       <BackHeader title={item} />
       <Ads />
 
-      <div className="flex items-center justify-center px-5 pb-[150px]">
+      <div className="flex items-center justify-center px-5 pb-[20px]">
         <div>
           <img src={url} alt={item+category} className="max-h-48 max-w-full" />
         </div>
