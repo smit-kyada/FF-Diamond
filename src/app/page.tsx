@@ -7,14 +7,6 @@ import "./globals.css";
 import Link from "next/link";
 
 export default function HomePage() {
-  // Enable AdSense after page render
-  useEffect(() => {
-    try {
-      (window.adsbygoogle = window.adsbygoogle || []).push({});
-    } catch (e) {
-      console.error('Adsense error', e);
-    }
-  }, []);
 
   return (
     <>
