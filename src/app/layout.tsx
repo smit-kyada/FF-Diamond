@@ -19,6 +19,10 @@ export default function RootLayout({
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width" />
+        <link rel="manifest" href="/manifest.json" />
+        <link rel="apple-touch-icon" href="/resources/Diamond.png" />
+        <meta name="theme-color" content="#0d6efd" />
+
         {/* AdSense Script */}
         <script
           async
