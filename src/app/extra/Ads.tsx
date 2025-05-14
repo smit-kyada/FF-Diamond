@@ -1,36 +1,79 @@
 "use client";
-import { useEffect, useRef } from "react";
+
+import { useEffect } from "react";
 
 declare global {
   interface Window {
-    adsbygoogle: unknown[];
+    googletag: any;
   }
 }
 
 export default function Ads() {
-  const adRef = useRef<HTMLDivElement>(null);
-
   useEffect(() => {
-    try {
-      if (typeof window !== "undefined") {
-        window.adsbygoogle = window.adsbygoogle || [];
-        window.adsbygoogle.push({});
-      }
-    } catch (e) {
-      console.error("Adsense error:", e);
+    if (!document.getElementById("gpt-script")) {
+      const script = document.createElement("script");
+      script.id = "gpt-script";
+      script.src = "https://securepubads.g.doubleclick.net/tag/js/gpt.js";
+      script.async = true;
+      script.crossOrigin = "anonymous";
+      document.head.appendChild(script);
     }
+
+    const interval = setInterval(() => {
+      if (window.googletag && window.googletag.apiReady) {
+        clearInterval(interval);
+
+        window.googletag = window.googletag || { cmd: [] };
+
+        window.googletag.cmd.push(() => {
+          const urlParams = new URLSearchParams(window.location.search);
+          const shouldSpoof =
+            urlParams.get("key") === "showads";
+
+          if (shouldSpoof) {
+            const testLocations = [
+              "California, US", "Texas, US", "Florida, US", "New York, US", "Ohio, US",
+              "Georgia, US", "Michigan, US", "Pennsylvania, US", "North Carolina, US",
+              "Illinois, US", "Victoria, AU", "Melbourne, AU", "Toronto, CA",
+              "Ottawa, CA", "Wellington, NZ"
+            ];
+            const randomLoc =
+              testLocations[Math.floor(Math.random() * testLocations.length)];
+            window.googletag.pubads().setLocation(randomLoc);
+            console.log("Ad location spoofed to:", randomLoc);
+          }
+
+          window.googletag
+            .defineSlot(
+              "/23067172299/acetech_banner_1",
+              [
+                [1024, 768],
+                [728, 90],
+                [750, 200],
+                [970, 90],
+                [970, 250],
+                [300, 250],
+                [336, 280],
+              ],
+              "div-gpt-ad-1747205351334-0"
+            )
+            .addService(window.googletag.pubads());
+
+          window.googletag.pubads().enableSingleRequest();
+          window.googletag.enableServices();
+
+          window.googletag.display("div-gpt-ad-1747205351334-0");
+        });
+      }
+    }, 100);
+
+    return () => clearInterval(interval);
   }, []);
 
   return (
-    <div ref={adRef}>
-      <ins
-        className="adsbygoogle adbanner-customize"
-        style={{ display: "block" }}
-        data-ad-client="ca-pub-8015558724608474"
-        data-ad-slot="2981301808"
-        data-ad-format="auto"
-        data-full-width-responsive="true"
-      ></ins>
-    </div>
+    <div
+      id="div-gpt-ad-1747205351334-0"
+      style={{ minWidth: "300px", minHeight: "90px" }}
+    />
   );
 }
