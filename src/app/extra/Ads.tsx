@@ -4,9 +4,27 @@ import { useEffect } from "react";
 
 declare global {
   interface Window {
-    googletag: any;
+    googletag: {
+      cmd: Array<() => void>;
+      pubads: () => {
+        setLocation: (location: string) => void;
+        enableSingleRequest: () => void;
+        addEventListener?: (eventName: string, callback: (...args: any[]) => void) => void;
+      };
+      defineSlot: (
+        adUnitPath: string,
+        size: number[] | number[][],
+        divId: string
+      ) => {
+        addService: (service: any) => void;
+      };
+      enableServices: () => void;
+      display: (divId: string) => void;
+      apiReady?: boolean;
+    };
   }
 }
+
 
 export default function Ads() {
   useEffect(() => {
