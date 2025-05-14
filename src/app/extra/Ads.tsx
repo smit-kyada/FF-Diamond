@@ -6,21 +6,24 @@ declare global {
   interface Window {
     googletag: {
       cmd: Array<() => void>;
+      apiReady?: boolean;
       pubads: () => {
         setLocation: (location: string) => void;
         enableSingleRequest: () => void;
-        addEventListener?: (eventName: string, callback: (...args: any[]) => void) => void;
+        addEventListener?: (
+          eventName: string,
+          callback: (...args: unknown[]) => void
+        ) => void;
       };
       defineSlot: (
         adUnitPath: string,
         size: number[] | number[][],
         divId: string
       ) => {
-        addService: (service: any) => void;
+        addService: (service: unknown) => void;
       };
       enableServices: () => void;
       display: (divId: string) => void;
-      apiReady?: boolean;
     };
   }
 }
