@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import BackHeader from "../../../BackHeader";
 import Ads from "@/app/extra/Ads";
 import Link from "next/link";
+import RewardedAd from "../../../extra/RewardedAd";
 
 // Sample JSON data (this would typically come from an API or file)
 const tools = [
@@ -53,6 +54,7 @@ export default async function CharacterPage({
 
   return (
     <div className="max-w-[390px] sm:max-w-[360px] mx-auto pt-24 flex flex-col gap-5">
+      <RewardedAd />
       <BackHeader title={tool.name} />
 
       {/* <div className="pb-10"> */}

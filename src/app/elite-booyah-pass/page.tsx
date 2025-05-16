@@ -6,11 +6,12 @@ import styles from "./EliteBooyahPass.module.css";
 import BackHeader from "../BackHeader";
 import Ads from "../extra/Ads";
 import Link from "next/link";
-
+import RewardedAd from "../extra/RewardedAd";
 
 export default function EliteBooyahPass() {
   return (
     <>
+    <RewardedAd />
       <BackHeader title="Elite Booyah Pass" />
 
       <main className={styles.main}>

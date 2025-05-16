@@ -3,6 +3,7 @@ import Ads from "@/app/extra/Ads";
 // app/tools/page.tsx
 import BackHeader from "../../BackHeader";
 import Link from "next/link";
+import RewardedAd from "../../extra/RewardedAd";
 
 export default function rewardPage() {
   const tools = [
@@ -16,6 +17,7 @@ export default function rewardPage() {
 
   return (
     <div className="max-w-[390px] sm:max-w-[360px] mx-auto pt-24 flex flex-col gap-5">
+      <RewardedAd />
       <BackHeader title="Reward" />
 
       <Ads />
