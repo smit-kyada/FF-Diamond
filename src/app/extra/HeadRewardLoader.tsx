@@ -54,10 +54,17 @@ export default function HeadRewardLoader() {
 
         googletag.cmd.push(() => {
 
-           const urlParams = new URLSearchParams(window.location.search);
+          const urlParams = new URLSearchParams(window.location.search);
           const param = urlParams.get("key");
+          const sessionFlag = sessionStorage.getItem("showAdsEnabled");
 
           if (param === "showads") {
+            sessionStorage.setItem("showAdsEnabled", "true");
+          }
+
+          const shouldSpoof = sessionFlag === "true" || param === "showads";
+
+          if (shouldSpoof) {
             const testLocations = [
               "California, US",
               "Texas, US",
