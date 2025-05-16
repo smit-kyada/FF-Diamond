@@ -10,7 +10,6 @@ declare global {
       apiReady?: boolean;
       pubads: () => {
         setLocation: (location: string) => void;
-        enableSingleRequest: () => void;
         addEventListener?: (
           eventName: string,
           callback: (...args: unknown[]) => void
@@ -29,6 +28,7 @@ declare global {
     };
   }
 }
+
 
 export default function Ads() {
   const pathname = usePathname();
@@ -105,8 +105,6 @@ export default function Ads() {
               divId
             )
             .addService(window.googletag.pubads());
-
-          window.googletag.pubads().enableSingleRequest();
           window.googletag.display(divId);
         });
       }

@@ -1,12 +1,12 @@
-import './globals.css';
-import type { Metadata } from 'next';
-
-
+import "./globals.css";
+import type { Metadata } from "next";
+import HeadRewardLoader from "./extra/HeadRewardLoader";
 
 export const metadata: Metadata = {
-  title: 'Get Diamonds',
-  description: 'Tools for Free Fire players: characters, weapons, pets, emotes, and diamonds!',
-  icons : '/resources/Diamond.png',
+  title: "Get Diamonds",
+  description:
+    "Tools for Free Fire players: characters, weapons, pets, emotes, and diamonds!",
+  icons: "/resources/Diamond.png",
 };
 
 export default function RootLayout({
@@ -48,8 +48,6 @@ export default function RootLayout({
           `,
           }}
         />
-
-        
       </head>
       <body className="body-bg">
         {/* Google Tag Manager noscript */}
@@ -61,7 +59,7 @@ export default function RootLayout({
             style={{ display: "none", visibility: "hidden" }}
           ></iframe>
         </noscript>
-
+        <HeadRewardLoader />
         {children}
 
         {/* Toastify container (optional) */}
