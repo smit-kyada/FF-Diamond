@@ -82,10 +82,6 @@ export default function HeadRewardLoader() {
             googletag.display(interstitialSlot);
           }
 
-          type RewardedSlotReadyEvent = {
-              makeRewardedVisible: () => Promise<void>;
-            };
-
 
           // Event listeners for rewarded ad
           googletag.pubads().addEventListener?.("rewardedSlotReady", (...args: unknown[]) => {
