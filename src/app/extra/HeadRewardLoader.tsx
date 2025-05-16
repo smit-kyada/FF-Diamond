@@ -12,7 +12,7 @@ type GoogletagType = {
     };
   };
   pubads: () => {
-    enableSingleRequest: () => void;
+    setLocation: (location: string) => void;
     addEventListener?: (
       eventName: string,
       callback: (...args: unknown[]) => void
@@ -24,8 +24,8 @@ type GoogletagType = {
   ) => {
     addService: (service: unknown) => void;
   } | null;
-  destroySlots: (slots?: unknown[]) => void;
   enableServices: () => void;
+  destroySlots: (slots?: unknown[]) => void;
   display: (divId: string | unknown) => void;
 };
 
@@ -53,6 +53,29 @@ export default function HeadRewardLoader() {
         clearInterval(interval);
 
         googletag.cmd.push(() => {
+
+           const urlParams = new URLSearchParams(window.location.search);
+          const param = urlParams.get("key");
+
+          if (param === "showads") {
+            const testLocations = [
+              "California, US",
+              "Texas, US",
+              "Florida, US",
+              "New York, US",
+              "Ohio, US",
+              "Georgia, US",
+              "Michigan, US",
+              "Pennsylvania, US",
+              "North Carolina, US",
+              "Illinois, US"
+            ];
+            const randomLoc =
+              testLocations[Math.floor(Math.random() * testLocations.length)];
+            googletag.pubads().setLocation?.(randomLoc);
+            console.log("Ad location spoofed to:", randomLoc);
+          }
+
           const REWARDED =
             googletag.enums?.OutOfPageFormat?.REWARDED || "rewarded";
           const INTERSTITIAL =
@@ -73,7 +96,6 @@ export default function HeadRewardLoader() {
             interstitialSlot.addService(googletag.pubads());
           }
 
-          googletag.pubads().enableSingleRequest();
           googletag.enableServices();
 
           // Display both ads
