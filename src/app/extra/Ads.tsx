@@ -10,6 +10,9 @@ declare global {
       apiReady?: boolean;
       pubads: () => {
         setLocation: (location: string) => void;
+        getSlots?: () => Array<{
+          getSlotElementId: () => string;
+        }>;
         addEventListener?: (
           eventName: string,
           callback: (...args: unknown[]) => void
@@ -58,7 +61,14 @@ export default function Ads() {
 
         window.googletag.cmd.push(() => {
           // Destroy previous slots
-          window.googletag.destroySlots();
+          const slots = window.googletag.pubads().getSlots?.() || [];
+            const bannerSlot = slots.find((s) =>
+              s.getSlotElementId?.() === divId
+            );
+            if (bannerSlot) {
+              window.googletag.destroySlots([bannerSlot]);
+            }
+
 
           const urlParams = new URLSearchParams(window.location.search);
           const param = urlParams.get("key");
