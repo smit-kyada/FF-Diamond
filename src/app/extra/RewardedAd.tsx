@@ -2,20 +2,26 @@
 
 import { useEffect } from "react";
 
+type RewardedSlotReadyEvent = {
+  makeRewardedVisible: () => void;
+};
+
 type Googletag = {
   cmd: Array<() => void>;
   pubads: () => {
     addEventListener: (
-      eventName: string,
-      callback: (event: any) => void
+      eventName: "rewardedSlotReady" | "rewardedSlotClosed",
+      callback: (event: RewardedSlotReadyEvent) => void
     ) => void;
   };
   defineOutOfPageSlot: (
     adUnitPath: string,
     outOfPageFormat: string
-  ) => any;
+  ) => {
+    addService: (service: ReturnType<Googletag["pubads"]>) => void;
+  } | null;
   enableServices: () => void;
-  display: (slot: any) => void;
+  display: (slot: unknown) => void;
   enums?: {
     OutOfPageFormat: {
       REWARDED: string;
@@ -26,21 +32,21 @@ type Googletag = {
 const RewardedAd = () => {
   useEffect(() => {
     const initRewardedAd = () => {
-      const googletag = (window as any).googletag as Googletag;
+      const googletag = (window as unknown as { googletag: Googletag }).googletag;
       if (!googletag) return;
 
       googletag.cmd = googletag.cmd || [];
       googletag.cmd.push(() => {
         const format = googletag.enums?.OutOfPageFormat.REWARDED || "rewarded";
         const slot = googletag.defineOutOfPageSlot(
-          "/23200510714/NIRAV-REWARD-2", // Replace with your Ad Unit
+          "/123456789/example-rewarded-ad", // Replace with your Ad Unit Path
           format
         );
 
         if (slot) {
           slot.addService(googletag.pubads());
 
-          googletag.pubads().addEventListener("rewardedSlotReady", (event: any) => {
+          googletag.pubads().addEventListener("rewardedSlotReady", (event) => {
             console.log("Rewarded ad ready. Showing now.");
             event.makeRewardedVisible();
           });
@@ -55,7 +61,7 @@ const RewardedAd = () => {
       });
     };
 
-    if (!(window as any).googletag) {
+    if (!(window as unknown as { googletag?: Googletag }).googletag) {
       const script = document.createElement("script");
       script.id = "gpt-script";
       script.src = "https://securepubads.g.doubleclick.net/tag/js/gpt.js";
