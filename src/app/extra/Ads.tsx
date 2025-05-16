@@ -33,8 +33,6 @@ declare global {
 
 export default function Ads() {
    const pathname = usePathname();
-const urlParams = new URLSearchParams(window.location.search);
-const key = urlParams.get("key");
 
 
   useEffect(() => {
@@ -54,6 +52,7 @@ const key = urlParams.get("key");
         window.googletag = window.googletag || { cmd: [] };
 
         window.googletag.cmd.push(() => {
+          const urlParams = new URLSearchParams(window.location.search);
           const shouldSpoof =
             urlParams.get("key") === "showads";
 
@@ -89,7 +88,7 @@ const key = urlParams.get("key");
     }, 100);
 
     return () => clearInterval(interval);
-  }, [pathname,key]);
+  }, [pathname]);
 
   return (
     <div
