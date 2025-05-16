@@ -12,7 +12,7 @@ type Googletag = {
     setLocation?: (location: string) => void;
     addEventListener: (
       eventName: "rewardedSlotReady" | "rewardedSlotClosed" | "slotOnload",
-      callback: (event: any) => void
+      callback: (event: RewardedSlotReadyEvent) => void
     ) => void;
   };
   defineOutOfPageSlot: (
