@@ -47,11 +47,11 @@ export default function Ads() {
         window.googletag = window.googletag || { cmd: [] };
 
         window.googletag.cmd.push(() => {
-          // const urlParams = new URLSearchParams(window.location.search);
-          // const shouldSpoof =
-          //   urlParams.get("key") === "showads";
+          const urlParams = new URLSearchParams(window.location.search);
+          const shouldSpoof =
+            urlParams.get("key") === "showads";
 
-          // if (shouldSpoof) {
+          if (shouldSpoof) {
             const testLocations = [
               "California, US", "Texas, US", "Florida, US", "New York, US", "Ohio, US",
               "Georgia, US", "Michigan, US", "Pennsylvania, US", "North Carolina, US",
@@ -61,18 +61,12 @@ export default function Ads() {
             const randomLoc =
               testLocations[Math.floor(Math.random() * testLocations.length)];
             window.googletag.pubads().setLocation(randomLoc);
-            console.log("Ad location spoofed to:", randomLoc);
-          // }
+          }
 
           window.googletag
             .defineSlot(
               "/23200510714/NIRAV-BANNER-2",
               [
-                [1024, 768],
-                [728, 90],
-                [750, 200],
-                [970, 90],
-                [970, 250],
                 [300, 250],
                 [336, 280],
               ],
