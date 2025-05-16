@@ -118,7 +118,7 @@ export default function Ads() {
   return (
     <div
       id="div-gpt-ad-1747205351334-0"
-      style={{ minWidth: "300px", minHeight: "90px" }}
+      style={{ minWidth: "300px", minHeight: "90px" , alignItems: "center" }}
     />
   );
 }
