@@ -31,7 +31,6 @@ type GoogletagType = {
 };
 
 export default function HeadRewardLoader() {
-  console.error("Failed to define rsasacascsacscsccsewarded ad slot.");
   useEffect(() => {
     // Inject GPT script if not already loaded
     if (!document.getElementById("gpt-script")) {

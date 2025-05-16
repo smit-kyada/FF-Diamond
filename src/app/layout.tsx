@@ -1,6 +1,6 @@
 import "./globals.css";
 import type { Metadata } from "next";
-import HeadRewardLoader from "./extra/HeadRewardLoader";
+
 
 export const metadata: Metadata = {
   title: "Get Diamonds",
@@ -59,7 +59,7 @@ export default function RootLayout({
             style={{ display: "none", visibility: "hidden" }}
           ></iframe>
         </noscript>
-        <HeadRewardLoader />
+        
         {children}
 
         {/* Toastify container (optional) */}
