@@ -1,6 +1,6 @@
 import "./globals.css";
 import type { Metadata } from "next";
-
+import RewardedAd from "./extra/RewardedAd";
 
 export const metadata: Metadata = {
   title: "Get Diamonds",
@@ -59,7 +59,8 @@ export default function RootLayout({
             style={{ display: "none", visibility: "hidden" }}
           ></iframe>
         </noscript>
-        
+        <RewardedAd />
+
         {children}
 
         {/* Toastify container (optional) */}
