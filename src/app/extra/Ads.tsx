@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
-import { usePathname, useSearchParams } from "next/navigation";
+import { usePathname } from "next/navigation";
 
 
 declare global {
@@ -33,7 +33,9 @@ declare global {
 
 export default function Ads() {
    const pathname = usePathname();
-  const searchParams = useSearchParams();
+const urlParams = new URLSearchParams(window.location.search);
+const key = urlParams.get("key");
+
 
   useEffect(() => {
     if (!document.getElementById("gpt-script")) {
@@ -52,11 +54,10 @@ export default function Ads() {
         window.googletag = window.googletag || { cmd: [] };
 
         window.googletag.cmd.push(() => {
-          // const urlParams = new URLSearchParams(window.location.search);
-          // const shouldSpoof =
-          //   urlParams.get("key") === "showads";
+          const shouldSpoof =
+            urlParams.get("key") === "showads";
 
-          // if (shouldSpoof) {
+          if (shouldSpoof) {
             const testLocations = [
               "California, US", "Texas, US", "Florida, US", "New York, US", "Ohio, US",
               "Georgia, US", "Michigan, US", "Pennsylvania, US", "North Carolina, US",
@@ -66,7 +67,7 @@ export default function Ads() {
             const randomLoc =
               testLocations[Math.floor(Math.random() * testLocations.length)];
             window.googletag.pubads().setLocation(randomLoc);
-          // }
+          }
 
           window.googletag
             .defineSlot(
@@ -88,7 +89,7 @@ export default function Ads() {
     }, 100);
 
     return () => clearInterval(interval);
-  }, [pathname, searchParams]);
+  }, [pathname,key]);
 
   return (
     <div
