@@ -107,7 +107,6 @@ export default function Ads() {
             .addService(window.googletag.pubads());
 
           window.googletag.pubads().enableSingleRequest();
-          window.googletag.enableServices();
           window.googletag.display(divId);
         });
       }
