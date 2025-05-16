@@ -47,7 +47,7 @@ export default function Ads() {
         window.googletag = window.googletag || { cmd: [] };
 
         window.googletag.cmd.push(() => {
-          const urlParams = new URLSearchParams(window.location.search);
+          // const urlParams = new URLSearchParams(window.location.search);
           // const shouldSpoof =
           //   urlParams.get("key") === "showads";
 
