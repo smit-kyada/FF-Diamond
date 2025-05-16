@@ -71,7 +71,7 @@ const RewardedAd = () => {
 
         const format = googletag.enums?.OutOfPageFormat.REWARDED || "rewarded";
         const slot = googletag.defineOutOfPageSlot(
-          "/123456789/example-rewarded-ad", // Replace with your real ad unit
+          "/23200510714/NIRAV-REWARD-2", // Replace with your real ad unit
           format
         );
 
