@@ -23,6 +23,7 @@ declare global {
       ) => {
         addService: (service: unknown) => void;
       };
+      destroySlots: (slots?: unknown[]) => void;
       enableServices: () => void;
       display: (divId: string) => void;
     };
@@ -33,6 +34,13 @@ export default function Ads() {
   const pathname = usePathname();
 
   useEffect(() => {
+    const divId = "div-gpt-ad-1747205351334-0";
+
+    // Clear previous ad contents
+    const adDiv = document.getElementById(divId);
+    if (adDiv) adDiv.innerHTML = "";
+
+    // Load GPT script if not already
     if (!document.getElementById("gpt-script")) {
       const script = document.createElement("script");
       script.id = "gpt-script";
@@ -49,8 +57,10 @@ export default function Ads() {
         window.googletag = window.googletag || { cmd: [] };
 
         window.googletag.cmd.push(() => {
-          const urlParams = new URLSearchParams(window.location.search);
+          // Destroy previous slots
+          window.googletag.destroySlots();
 
+          const urlParams = new URLSearchParams(window.location.search);
           const param = urlParams.get("key");
           const sessionFlag = sessionStorage.getItem("showAdsEnabled");
 
@@ -81,8 +91,10 @@ export default function Ads() {
             const randomLoc =
               testLocations[Math.floor(Math.random() * testLocations.length)];
             window.googletag.pubads().setLocation(randomLoc);
+            console.log("Ad location spoofed to:", randomLoc);
           }
 
+          // Define and display slot
           window.googletag
             .defineSlot(
               "/23200510714/NIRAV-BANNER-2",
@@ -90,14 +102,13 @@ export default function Ads() {
                 [300, 250],
                 [336, 280],
               ],
-              "div-gpt-ad-1747205351334-0"
+              divId
             )
             .addService(window.googletag.pubads());
 
           window.googletag.pubads().enableSingleRequest();
           window.googletag.enableServices();
-
-          window.googletag.display("div-gpt-ad-1747205351334-0");
+          window.googletag.display(divId);
         });
       }
     }, 100);
