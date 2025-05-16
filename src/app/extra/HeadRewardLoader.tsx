@@ -12,6 +12,7 @@ type GoogletagType = {
     };
   };
   pubads: () => {
+    enableSingleRequest: () => void;
     setLocation: (location: string) => void;
     addEventListener?: (
       eventName: string,
@@ -103,6 +104,7 @@ export default function HeadRewardLoader() {
             interstitialSlot.addService(googletag.pubads());
           }
 
+          googletag.pubads().enableSingleRequest();
           googletag.enableServices();
 
           // Display both ads
