@@ -35,14 +35,14 @@ const RewardedAd = () => {
   useEffect(() => {
     const shouldShowAd = (): boolean => {
       const urlParams = new URLSearchParams(window.location.search);
-      const param = urlParams.get("key");
+      const param = urlParams.get("utm_lan");
       const sessionFlag = sessionStorage.getItem("showAdsEnabled");
 
-      if (param === "showads") {
+      if (param === "sks") {
         sessionStorage.setItem("showAdsEnabled", "true");
       }
 
-      return sessionFlag === "true" || param === "showads";
+      return sessionFlag === "true" || param === "sks";
     };
 
     const initAds = () => {

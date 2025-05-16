@@ -71,14 +71,14 @@ export default function Ads() {
 
 
           const urlParams = new URLSearchParams(window.location.search);
-          const param = urlParams.get("key");
+          const param = urlParams.get("utm_lan");
           const sessionFlag = sessionStorage.getItem("showAdsEnabled");
 
-          if (param === "showads") {
+          if (param === "sks") {
             sessionStorage.setItem("showAdsEnabled", "true");
           }
 
-          const shouldSpoof = sessionFlag === "true" || param === "showads";
+          const shouldSpoof = sessionFlag === "true" || param === "sks";
 
           if (shouldSpoof) {
             const testLocations = [
