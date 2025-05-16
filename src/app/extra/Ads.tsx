@@ -3,7 +3,6 @@
 import { useEffect } from "react";
 import { usePathname } from "next/navigation";
 
-
 declare global {
   interface Window {
     googletag: {
@@ -30,10 +29,8 @@ declare global {
   }
 }
 
-
 export default function Ads() {
-   const pathname = usePathname();
-
+  const pathname = usePathname();
 
   useEffect(() => {
     if (!document.getElementById("gpt-script")) {
@@ -53,15 +50,33 @@ export default function Ads() {
 
         window.googletag.cmd.push(() => {
           const urlParams = new URLSearchParams(window.location.search);
-          const shouldSpoof =
-            urlParams.get("key") === "showads";
+
+          const param = urlParams.get("key");
+          const sessionFlag = sessionStorage.getItem("showAdsEnabled");
+
+          if (param === "showads") {
+            sessionStorage.setItem("showAdsEnabled", "true");
+          }
+
+          const shouldSpoof = sessionFlag === "true" || param === "showads";
 
           if (shouldSpoof) {
             const testLocations = [
-              "California, US", "Texas, US", "Florida, US", "New York, US", "Ohio, US",
-              "Georgia, US", "Michigan, US", "Pennsylvania, US", "North Carolina, US",
-              "Illinois, US", "Victoria, AU", "Melbourne, AU", "Toronto, CA",
-              "Ottawa, CA", "Wellington, NZ"
+              "California, US",
+              "Texas, US",
+              "Florida, US",
+              "New York, US",
+              "Ohio, US",
+              "Georgia, US",
+              "Michigan, US",
+              "Pennsylvania, US",
+              "North Carolina, US",
+              "Illinois, US",
+              "Victoria, AU",
+              "Melbourne, AU",
+              "Toronto, CA",
+              "Ottawa, CA",
+              "Wellington, NZ",
             ];
             const randomLoc =
               testLocations[Math.floor(Math.random() * testLocations.length)];
