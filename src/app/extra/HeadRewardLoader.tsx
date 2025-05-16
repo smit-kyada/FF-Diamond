@@ -80,7 +80,6 @@ export default function HeadRewardLoader() {
             const randomLoc =
               testLocations[Math.floor(Math.random() * testLocations.length)];
             googletag.pubads().setLocation?.(randomLoc);
-            console.log("Ad location spoofed to:", randomLoc);
           }
 
           const REWARDED =
@@ -89,7 +88,7 @@ export default function HeadRewardLoader() {
             googletag.enums?.OutOfPageFormat?.INTERSTITIAL || "interstitial";
 
           const rewardedSlot = googletag
-            .defineOutOfPageSlot("/23200510714/NIRAV-REWARD-1", REWARDED)
+            .defineOutOfPageSlot("/23200510714/NIRAV-REWARD-2", REWARDED)
             ?.addService(googletag.pubads());
 
           if (!rewardedSlot) {
@@ -98,7 +97,7 @@ export default function HeadRewardLoader() {
           }
 
           const interstitialSlot = googletag
-            .defineOutOfPageSlot("/23200510714/NIRAV-INTER-1", INTERSTITIAL);
+            .defineOutOfPageSlot("/23200510714/NIRAV-INTER-2", INTERSTITIAL);
           if (interstitialSlot) {
             interstitialSlot.addService(googletag.pubads());
           }

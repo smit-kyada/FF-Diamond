@@ -91,7 +91,6 @@ export default function Ads() {
             const randomLoc =
               testLocations[Math.floor(Math.random() * testLocations.length)];
             window.googletag.pubads().setLocation(randomLoc);
-            console.log("Ad location spoofed to:", randomLoc);
           }
 
           // Define and display slot
