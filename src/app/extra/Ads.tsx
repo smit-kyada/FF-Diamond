@@ -48,10 +48,10 @@ export default function Ads() {
 
         window.googletag.cmd.push(() => {
           const urlParams = new URLSearchParams(window.location.search);
-          const shouldSpoof =
-            urlParams.get("key") === "showads";
+          // const shouldSpoof =
+          //   urlParams.get("key") === "showads";
 
-          if (shouldSpoof) {
+          // if (shouldSpoof) {
             const testLocations = [
               "California, US", "Texas, US", "Florida, US", "New York, US", "Ohio, US",
               "Georgia, US", "Michigan, US", "Pennsylvania, US", "North Carolina, US",
@@ -62,11 +62,11 @@ export default function Ads() {
               testLocations[Math.floor(Math.random() * testLocations.length)];
             window.googletag.pubads().setLocation(randomLoc);
             console.log("Ad location spoofed to:", randomLoc);
-          }
+          // }
 
           window.googletag
             .defineSlot(
-              "/23067172299/acetech_banner_1",
+              "/23200510714/NIRAV-BANNER-2",
               [
                 [1024, 768],
                 [728, 90],
