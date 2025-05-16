@@ -114,6 +114,7 @@ export default function HeadRewardLoader() {
           }
 
 
+          
           // Event listeners for rewarded ad
           googletag.pubads().addEventListener?.("rewardedSlotReady", (...args: unknown[]) => {
               const evt = args[0] as { makeRewardedVisible: () => Promise<void> };
