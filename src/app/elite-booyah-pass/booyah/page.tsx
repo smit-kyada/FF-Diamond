@@ -3,7 +3,7 @@ import Ads from "@/app/extra/Ads";
 // app/tools/page.tsx
 import BackHeader from "../../BackHeader";
 import Link from "next/link";
-import RewardedAd from "../../extra/RewardedAd";
+// import RewardedAd from "../../extra/RewardedAd";
 
 export default function booyahPage() {
   const tools = [
@@ -19,7 +19,7 @@ export default function booyahPage() {
 
   return (
     <div className="max-w-[390px] sm:max-w-[360px] mx-auto pt-24 flex flex-col gap-5">
-      <RewardedAd />
+      {/* <RewardedAd /> */}
       <BackHeader title="Booyah" />
 
       <Ads />

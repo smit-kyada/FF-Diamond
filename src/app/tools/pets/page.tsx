@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import BackHeader from "@/app/BackHeader";
 import "../../success/sucess.css";
 import Ads from "@/app/extra/Ads";
-import RewardedAd from "../../extra/RewardedAd";
+// import RewardedAd from "../../extra/RewardedAd";
 
 export default function CharatersPage() {
   const router = useRouter();
@@ -37,7 +37,7 @@ export default function CharatersPage() {
   ];
   return (
     <div className="max-w-[390px] sm:max-w-[360px] mx-auto pt-24 flex flex-col gap-5">
-      <RewardedAd />
+      {/* <RewardedAd /> */}
       <BackHeader title="Pets" />
 
       <Ads />

@@ -68,45 +68,10 @@ export default function Ads() {
             if (bannerSlot) {
               window.googletag.destroySlots([bannerSlot]);
             }
-
-
-          const urlParams = new URLSearchParams(window.location.search);
-          const param = urlParams.get("utm_lan");
-          const sessionFlag = sessionStorage.getItem("showAdsEnabled");
-
-          if (param === "sks") {
-            sessionStorage.setItem("showAdsEnabled", "true");
-          }
-
-          const shouldSpoof = sessionFlag === "true" || param === "sks";
-
-          if (shouldSpoof) {
-            const testLocations = [
-              "California, US",
-              "Texas, US",
-              "Florida, US",
-              "New York, US",
-              "Ohio, US",
-              "Georgia, US",
-              "Michigan, US",
-              "Pennsylvania, US",
-              "North Carolina, US",
-              "Illinois, US",
-              "Victoria, AU",
-              "Melbourne, AU",
-              "Toronto, CA",
-              "Ottawa, CA",
-              "Wellington, NZ",
-            ];
-            const randomLoc =
-              testLocations[Math.floor(Math.random() * testLocations.length)];
-            window.googletag.pubads().setLocation(randomLoc);
-          }
-
           // Define and display slot
           window.googletag
             .defineSlot(
-              "/23200510714/NIRAV-BANNER-2",
+              "/23308471723/100007-BANNER-1",
               [
                 [300, 250],
                 [336, 280],

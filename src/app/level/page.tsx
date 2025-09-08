@@ -4,7 +4,7 @@
 import BackHeader from "../BackHeader";
 import Ads from "../extra/Ads";
 import Link from "next/link";
-import RewardedAd from "../extra/RewardedAd";
+// import RewardedAd from "../extra/RewardedAd";
 
 export default function LevelPage() {
   const tools = [
@@ -18,7 +18,7 @@ export default function LevelPage() {
 
   return (
     <div className="max-w-[390px] sm:max-w-[360px] mx-auto pt-24 flex flex-col gap-5">
-      <RewardedAd />
+      {/* <RewardedAd /> */}
       <BackHeader title="Level" />
 
       <Ads />

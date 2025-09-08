@@ -4,7 +4,7 @@ import BackHeader from "../../../BackHeader";
 import "../../../success/sucess.css";
 import WeaponMap from "@/app/extra/WeaponMap";
 import Ads from "@/app/extra/Ads";
-import RewardedAd from "../../../extra/RewardedAd";
+// import RewardedAd from "../../../extra/RewardedAd";
 
 const data: Record<string, { name: string }[]> = {
   launcher: [{ name: "RGS50" }, { name: "MGL140" }, { name: "M79" }],
@@ -112,7 +112,7 @@ export default async function WeaponCategoryPage({
   return (
     <>
       <div className="max-w-[390px] mx-auto pt-24 flex flex-col gap-4 pb-10">
-        <RewardedAd />
+        {/* <RewardedAd /> */}
         <BackHeader title={name.toUpperCase()} />
 
         <Ads />

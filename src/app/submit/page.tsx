@@ -4,7 +4,7 @@ import BackHeader from "../BackHeader";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Ads from "../extra/Ads";
-import RewardedAd from "../extra/RewardedAd";
+// import RewardedAd from "../extra/RewardedAd";
 
 export default function SubmitPage() {
   const [userId, setUserId] = useState("");
@@ -19,7 +19,7 @@ export default function SubmitPage() {
 
   return (
     <div className="max-w-[390px] sm:max-w-[360px] mx-auto pt-24 flex flex-col gap-5">
-      <RewardedAd />
+      {/* <RewardedAd /> */}
       <BackHeader title="Submit" />
 
       <Ads />

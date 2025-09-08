@@ -1,18 +1,18 @@
 // app/page.tsx
 "use client";
 
-import AdPopupModal from "./extra/AdPopupModal";
+// import AdPopupModal from "./extra/AdPopupModal";
 import Ads from "./extra/Ads";
 import "./globals.css";
 import Link from "next/link";
-import RewardedAd from "./extra/RewardedAd";
+// import RewardedAd from "./extra/RewardedAd";
 
 export default function HomePage() {
 
   return (
     <>
-      <RewardedAd />
-      <AdPopupModal />
+      {/* <RewardedAd /> */}
+      {/* <AdPopupModal /> */}
       <div className="maindiv">
         <div className="flex flex-col gap-6 mx-auto h-max ls:w-[360px] pb-10 container">
           {/* Logo */}
