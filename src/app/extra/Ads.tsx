@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { usePathname } from "next/navigation";
 
 declare global {
   interface Window {
@@ -46,6 +47,10 @@ interface AdsProps {
   style?: React.CSSProperties;
 }
 
+// Global flag to prevent multiple initializations across component remounts
+let globalAdInitialized = false;
+let lastPathname = "";
+
 export default function Ads({ 
   adUnitPath = "/23308471723/bimbgames-one-BANNER-1",
   sizes = [[300,250],[336,280],[780,250],[750,250],[728,90],[970,250],[970,90],[1200,250]],
@@ -55,14 +60,28 @@ export default function Ads({
   const adRef = useRef<HTMLDivElement>(null);
   const currentSlot = useRef<unknown>(null);
   const [adStatus, setAdStatus] = useState("loading");
-
-  // Generate unique ID per component instance
-  const divId = `div-gpt-ad-${Math.random().toString(36).substring(2, 9)}`;
+  const pathname = usePathname();
+  
+  // Simple, consistent div ID
+  const divId = "div-gpt-ad-slot";
 
   useEffect(() => {
-    console.log(`🚀 Initializing ad: ${adUnitPath} -> ${divId}`);
+    // Reset global flag when pathname changes
+    if (lastPathname !== pathname) {
+      globalAdInitialized = false;
+      lastPathname = pathname;
+      console.log(`🔄 Pathname changed to: ${pathname}, resetting ad initialization`);
+    }
 
-    // Load GPT script once
+    // Prevent multiple initializations using global flag
+    if (globalAdInitialized) {
+      console.log(`⏭️ Ad already initialized globally, skipping...`);
+      return;
+    }
+
+    console.log(`🚀 Initializing Google Ad Manager ad (Simple approach)`);
+
+    // Load GPT script if not already loaded
     if (!document.getElementById("gpt-script")) {
       const script = document.createElement("script");
       script.id = "gpt-script";
@@ -71,21 +90,18 @@ export default function Ads({
       document.head.appendChild(script);
     }
 
+    // Initialize googletag
     window.googletag = window.googletag || { cmd: [] };
 
     window.googletag.cmd.push(() => {
       try {
-        // Destroy all previous slots before making new one
-        const pubads = window.googletag.pubads();
-        if (pubads.getSlots) {
-          const allSlots = pubads.getSlots();
-          if (allSlots && allSlots.length > 0) {
-            window.googletag.destroySlots(allSlots);
-            console.log(`🗑️ Destroyed ${allSlots.length} old slots`);
-          }
+        // First, destroy any existing slots for this div
+        if (currentSlot.current) {
+          window.googletag.destroySlots([currentSlot.current]);
+          console.log(`🗑️ Destroyed previous ad slot`);
         }
 
-        // Clear current div content
+        // Clear the div content
         const adElement = document.getElementById(divId);
         if (adElement) {
           adElement.innerHTML = '';
@@ -102,40 +118,51 @@ export default function Ads({
 
         console.log(`🔍 Creating new ad slot with: ${adUnitPath}`);
 
-        const slot = window.googletag.defineSlot(adUnitPath, sizes, divId);
+        const slot = window.googletag.defineSlot(
+          adUnitPath,
+          sizes,
+          divId
+        );
 
         if (slot) {
+          // Store reference to current slot
           currentSlot.current = slot;
-
+          
+          // Apply size mapping and add service
           const slotWithMapping = slot as {
             defineSizeMapping: (mapping: unknown) => typeof slotWithMapping;
             addService: (service: unknown) => void;
           };
-
           slotWithMapping.defineSizeMapping(mapping).addService(window.googletag.pubads());
 
           // Collapse empty divs
           window.googletag.pubads().collapseEmptyDivs();
-
+          
           // Add event listeners
           const pubads = window.googletag.pubads();
           if (pubads.addEventListener) {
-            pubads.addEventListener("slotRenderEnded", (event: unknown) => {
-              const slotEvent = event as {
-                slot: { getSlotElementId: () => string };
-                isEmpty: boolean;
+            pubads.addEventListener('slotRenderEnded', (event: unknown) => {
+              const slotEvent = event as { 
+                slot: { getSlotElementId: () => string }; 
+                isEmpty: boolean 
               };
               if (slotEvent.slot.getSlotElementId() === divId) {
-                console.log("🎯 Ad render ended - Empty:", slotEvent.isEmpty);
-                setAdStatus(slotEvent.isEmpty ? "empty" : "loaded");
+                console.log('🎯 Ad render ended - Empty:', slotEvent.isEmpty);
+                if (slotEvent.isEmpty) {
+                  setAdStatus("empty");
+                } else {
+                  setAdStatus("loaded");
+                }
               }
             });
           }
 
-          // Enable and display
+          // Enable services and display
           window.googletag.enableServices();
           window.googletag.display(divId);
-          console.log(`✅ Ad slot created and displayed`);
+          globalAdInitialized = true;
+          console.log(`✅ New ad slot created and displayed`);
+          
         } else {
           console.error("❌ Failed to create ad slot");
           setAdStatus("error");
@@ -146,44 +173,55 @@ export default function Ads({
       }
     });
 
-    // Cleanup this slot only
+    // Cleanup function
     return () => {
-      console.log(`🧹 Cleaning up ad: ${divId}`);
-      if (currentSlot.current) {
+      console.log(`🧹 Component cleanup`);
+      
+      if (currentSlot.current && window.googletag) {
         try {
           window.googletag.cmd.push(() => {
             window.googletag.destroySlots([currentSlot.current]);
-            console.log(`🗑️ Destroyed slot on unmount: ${divId}`);
+            console.log(`🗑️ Destroyed ad slot on cleanup`);
           });
         } catch (error) {
           console.warn("⚠️ Error destroying ad slot:", error);
         }
       }
+      
+      currentSlot.current = null;
+      // Don't reset global flag on cleanup to prevent re-initialization
     };
-  }, [adUnitPath, sizes]);
+  }, [pathname, adUnitPath, sizes]);
 
   return (
     <div className={`ad-container ${className}`} style={{ margin: "10px 0", ...style }}>
       <div
         ref={adRef}
         id={divId}
-        style={{
-          minWidth: "300px",
-          minHeight: "90px",
+        style={{ 
+          minWidth: "300px", 
+          minHeight: "90px", 
           textAlign: "center",
           display: "flex",
           alignItems: "center",
-          justifyContent: "center",
+          justifyContent: "center"
         }}
       >
+        {/* Only show error states, no loading message */}
         {adStatus === "empty" && (
-          <div style={{ color: "#ff6b6b", fontSize: "14px" }}>Ad not available</div>
+          <div style={{ color: "#ff6b6b", fontSize: "14px" }}>
+            Ad not available
+          </div>
         )}
         {adStatus === "error" && (
-          <div style={{ color: "#ff6b6b", fontSize: "14px" }}>Ad failed to load</div>
+          <div style={{ color: "#ff6b6b", fontSize: "14px" }}>
+            Ad failed to load
+          </div>
         )}
       </div>
-      {process.env.NODE_ENV === "development" && (
+      
+      {/* Debug info */}
+      {process.env.NODE_ENV === 'development' && (
         <div style={{ fontSize: "10px", color: "#999", marginTop: "5px", textAlign: "center" }}>
           Status: {adStatus} | Ad Unit: {adUnitPath} | ID: {divId}
         </div>
