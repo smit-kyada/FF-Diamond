@@ -59,8 +59,8 @@ export default function Ads({
   const [adStatus, setAdStatus] = useState("loading");
   const pathname = usePathname();
   
-  // Generate unique div ID based on pathname and timestamp
-  const divId = `div-gpt-ad-${pathname.replace(/\//g, '-')}-${Date.now()}`;
+  // Generate stable div ID that doesn't change on re-renders
+  const divId = useRef(`div-gpt-ad-${pathname.replace(/\//g, '-')}-${Math.random().toString(36).substr(2, 9)}`).current;
 
   useEffect(() => {
     console.log(`🚀 Initializing Google Ad Manager ad for: ${pathname} (Unique ID: ${divId})`);
