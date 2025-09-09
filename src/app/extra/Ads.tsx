@@ -4,38 +4,7 @@ import { useEffect, useRef, useState } from "react";
 
 declare global {
   interface Window {
-    googletag: {
-      cmd: Array<() => void>;
-      apiReady?: boolean;
-      sizeMapping: () => {
-        addSize: (viewport: number[], sizes: number[][]) => unknown;
-        build: () => unknown;
-      };
-      pubads: () => {
-        setLocation: (location: string) => void;
-        setTargeting: (key: string, value: string) => void;
-        enableSingleRequest: () => void;
-        collapseEmptyDivs: () => void;
-        getSlots?: () => Array<{
-          getSlotElementId: () => string;
-        }>;
-        addEventListener?: (
-          eventName: string,
-          callback: (event: unknown) => void
-        ) => void;
-      };
-      defineSlot: (
-        adUnitPath: string,
-        size: number[] | number[][],
-        divId: string
-      ) => {
-        defineSizeMapping: (mapping: unknown) => unknown;
-        addService: (service: unknown) => void;
-      };
-      destroySlots: (slots?: unknown[]) => void;
-      enableServices: () => void;
-      display: (divId: string) => void;
-    };
+    googletag: any;
   }
 }
 
@@ -61,16 +30,20 @@ export default function Ads({
   className = "",
   style = {},
 }: AdsProps) {
-  const currentSlot = useRef<unknown>(null);
+  const currentSlot = useRef<any>(null);
   const [adStatus, setAdStatus] = useState("loading");
+  const initialized = useRef(false);
 
-  // ✅ Stable ID (singleton ad container)
+  // ✅ Stable ID
   const divId = "div-gpt-ad-singleton";
 
   useEffect(() => {
+    if (initialized.current) return; // ✅ Prevents double run in StrictMode
+    initialized.current = true;
+
     console.log(`🚀 Initializing ad: ${adUnitPath}`);
 
-    // Load GPT script once
+    // Load GPT script only once
     if (!document.getElementById("gpt-script")) {
       const script = document.createElement("script");
       script.id = "gpt-script";
@@ -84,56 +57,42 @@ export default function Ads({
     window.googletag.cmd.push(() => {
       try {
         const pubads = window.googletag.pubads();
-        if (pubads.getSlots) {
-          const allSlots = pubads.getSlots();
-          if (allSlots.length > 0) {
-            window.googletag.destroySlots(allSlots);
-            console.log(`🗑️ Destroyed ${allSlots.length} old slots`);
-          }
+
+        // Destroy only if same divId slot exists
+        const existingSlots =
+          pubads.getSlots?.().filter(
+            (slot: any) => slot.getSlotElementId() === divId
+          ) || [];
+        if (existingSlots.length > 0) {
+          window.googletag.destroySlots(existingSlots);
+          console.log(`🗑️ Destroyed ${existingSlots.length} old slot(s)`);
         }
 
-        // ❌ Removed innerHTML clearing (caused removeChild error)
-
-        // Create responsive size mapping
-        const sizeMappingBuilder = window.googletag.sizeMapping() as {
-          addSize: (viewport: number[], sizes: number[][]) => typeof sizeMappingBuilder;
-          build: () => unknown;
-        };
-        const mapping = sizeMappingBuilder
-          .addSize([0, 0], [[300, 250], [336, 280]])
+        // ✅ Size mapping
+        const mapping = window.googletag
+          .sizeMapping()
+          .addSize([0, 0], [
+            [300, 250],
+            [336, 280],
+          ])
           .build();
 
         console.log(`🔍 Creating new ad slot with: ${adUnitPath}`);
 
         const slot = window.googletag.defineSlot(adUnitPath, sizes, divId);
-
         if (slot) {
           currentSlot.current = slot;
 
-          const slotWithMapping = slot as {
-            defineSizeMapping: (mapping: unknown) => typeof slotWithMapping;
-            addService: (service: unknown) => void;
-          };
+          slot.defineSizeMapping(mapping).addService(pubads);
 
-          slotWithMapping
-            .defineSizeMapping(mapping)
-            .addService(window.googletag.pubads());
+          pubads.collapseEmptyDivs();
 
-          window.googletag.pubads().collapseEmptyDivs();
-
-          const pubads = window.googletag.pubads();
-          if (pubads.addEventListener) {
-            pubads.addEventListener("slotRenderEnded", (event: unknown) => {
-              const slotEvent = event as {
-                slot: { getSlotElementId: () => string };
-                isEmpty: boolean;
-              };
-              if (slotEvent.slot.getSlotElementId() === divId) {
-                console.log("🎯 Ad render ended - Empty:", slotEvent.isEmpty);
-                setAdStatus(slotEvent.isEmpty ? "empty" : "loaded");
-              }
-            });
-          }
+          pubads.addEventListener("slotRenderEnded", (event: any) => {
+            if (event.slot.getSlotElementId() === divId) {
+              console.log("🎯 Ad render ended - Empty:", event.isEmpty);
+              setAdStatus(event.isEmpty ? "empty" : "loaded");
+            }
+          });
 
           window.googletag.enableServices();
           window.googletag.display(divId);
@@ -154,7 +113,10 @@ export default function Ads({
   }, [adUnitPath, sizes]);
 
   return (
-    <div className={`ad-container ${className}`} style={{ margin: "10px 0", ...style }}>
+    <div
+      className={`ad-container ${className}`}
+      style={{ margin: "10px 0", ...style }}
+    >
       <div
         id={divId}
         style={{
@@ -167,14 +129,25 @@ export default function Ads({
         }}
       >
         {adStatus === "empty" && (
-          <div style={{ color: "#ff6b6b", fontSize: "14px" }}>Ad not available</div>
+          <div style={{ color: "#ff6b6b", fontSize: "14px" }}>
+            Ad not available
+          </div>
         )}
         {adStatus === "error" && (
-          <div style={{ color: "#ff6b6b", fontSize: "14px" }}>Ad failed to load</div>
+          <div style={{ color: "#ff6b6b", fontSize: "14px" }}>
+            Ad failed to load
+          </div>
         )}
       </div>
       {process.env.NODE_ENV === "development" && (
-        <div style={{ fontSize: "10px", color: "#999", marginTop: "5px", textAlign: "center" }}>
+        <div
+          style={{
+            fontSize: "10px",
+            color: "#999",
+            marginTop: "5px",
+            textAlign: "center",
+          }}
+        >
           Status: {adStatus} | Ad Unit: {adUnitPath} | ID: {divId}
         </div>
       )}
