@@ -55,10 +55,10 @@ export default function ApplyPage() {
             The Other User ID option provides flexibility for players who want to explore different accounts or test our services with alternative Free Fire profiles. This is ideal for content creators, streamers, or players managing multiple accounts.
           </p>
           <p className="text-gray-300 text-sm leading-relaxed mb-3">
-            Our application system is secure and user-friendly, ensuring that your Free Fire data remains protected while providing seamless access to our platform's features. We support all major Free Fire regions and account types.
+            Our application system is secure and user-friendly, ensuring that your Free Fire data remains protected while providing seamless access to our platform&apos;s features. We support all major Free Fire regions and account types.
           </p>
           <p className="text-gray-300 text-sm leading-relaxed">
-            Once you complete the application process, you'll gain access to exclusive Free Fire tools, resources, and features that can help improve your gameplay, track your progress, and connect with the global Free Fire community!
+            Once you complete the application process, you&apos;ll gain access to exclusive Free Fire tools, resources, and features that can help improve your gameplay, track your progress, and connect with the global Free Fire community!
           </p>
         </div>
       </div>

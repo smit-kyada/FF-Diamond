@@ -80,7 +80,7 @@ export default function DisclaimerPage() {
 
         <div>
           <div className="font-semibold mb-2">Privacy & Data:</div>
-          <div>We don't collect any user personal information. Your privacy is important to us.</div>
+          <div>We don&apos;t collect any user personal information. Your privacy is important to us.</div>
         </div>
 
         <div>

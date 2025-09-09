@@ -65,7 +65,7 @@ export default function EliteBooyahPass() {
               The Elite Pass and Booyah Pass are premium battle pass systems in Free Fire that offer exclusive rewards, character skins, weapons, and special items. These passes provide incredible value for dedicated players.
             </p>
             <p className="text-gray-300 text-sm leading-relaxed mb-3">
-              Elite Pass rewards include exclusive character bundles, weapon skins, pet skins, and special emotes. Each season brings new themes and limited-time rewards that can't be obtained anywhere else.
+              Elite Pass rewards include exclusive character bundles, weapon skins, pet skins, and special emotes. Each season brings new themes and limited-time rewards that can&apos;t be obtained anywhere else.
             </p>
             <p className="text-gray-300 text-sm leading-relaxed mb-3">
               Booyah Pass offers additional premium content with unique character abilities, rare weapon skins, and exclusive accessories. Both passes feature tier-based progression systems with rewards unlocked as you level up.
