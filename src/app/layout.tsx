@@ -1,6 +1,13 @@
 import "./globals.css";
 import type { Metadata } from "next";
 
+// Declare gtag function for TypeScript
+declare global {
+  interface Window {
+    gtag: (command: string, targetId: string, config?: any) => void;
+  }
+}
+
 export const metadata: Metadata = {
   title: "Get Diamonds",
   description:
