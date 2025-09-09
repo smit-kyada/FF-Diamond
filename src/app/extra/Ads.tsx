@@ -8,8 +8,8 @@ declare global {
       cmd: Array<() => void>;
       apiReady?: boolean;
       sizeMapping: () => {
-        addSize: (viewport: number[], sizes: number[][]) => any;
-        build: () => any;
+        addSize: (viewport: number[], sizes: number[][]) => unknown;
+        build: () => unknown;
       };
       pubads: () => {
         setLocation: (location: string) => void;
@@ -34,7 +34,7 @@ declare global {
         size: number[] | number[][],
         divId: string
       ) => {
-        defineSizeMapping: (mapping: any) => any;
+        defineSizeMapping: (mapping: unknown) => unknown;
         addService: (service: unknown) => void;
       };
       destroySlots: (slots?: unknown[]) => void;
@@ -73,15 +73,15 @@ export default function Ads() {
     window.googletag.cmd.push(() => {
       try {
         // Create responsive size mapping exactly like the HTML
-        const mapping = window.googletag.sizeMapping()
+        const mapping = (window.googletag.sizeMapping() as any)
           .addSize([1280, 768], [[1200, 250]])
           .addSize([1024, 768], [[970, 90], [970, 250]])
           .addSize([800, 450], [[780, 250], [750, 250], [728, 90]])
           .addSize([0, 0], [[300, 250], [336, 280]])
           .build();
 
-        // Use the same ad unit path as the working HTML
-        const adUnitPath = "/23308471723/gamespowerplay-com-BANNER-1";
+        // Use your ad unit path
+        const adUnitPath = "/23308471723/bimbgames-one-BANNER-1";
         console.log(`🔍 Creating ad slot with: ${adUnitPath}`);
 
         const slot = window.googletag.defineSlot(
@@ -92,7 +92,7 @@ export default function Ads() {
 
         if (slot) {
           // Apply size mapping and add service exactly like HTML
-          slot.defineSizeMapping(mapping).addService(window.googletag.pubads());
+          (slot as any).defineSizeMapping(mapping).addService(window.googletag.pubads());
           
           // Enable lazy loading like the HTML
           window.googletag.pubads().enableLazyLoad({
@@ -191,7 +191,7 @@ export default function Ads() {
       {/* Debug info */}
       {process.env.NODE_ENV === 'development' && (
         <div style={{ fontSize: "10px", color: "#999", marginTop: "5px", textAlign: "center" }}>
-          Status: {adStatus} | Ad Unit: /23308471723/gamespowerplay-com-BANNER-1
+          Status: {adStatus} | Ad Unit: /23308471723/bimbgames-one-BANNER-1
         </div>
       )}
     </div>
