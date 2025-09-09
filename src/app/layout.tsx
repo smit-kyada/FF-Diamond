@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 // Declare gtag function for TypeScript
 declare global {
   interface Window {
-    gtag: (command: string, targetId: string, config?: any) => void;
+    gtag: (command: string, targetId: string, config?: Record<string, unknown>) => void;
   }
 }
 

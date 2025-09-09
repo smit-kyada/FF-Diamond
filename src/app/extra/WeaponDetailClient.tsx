@@ -3,6 +3,7 @@
 import BackHeader from "../BackHeader";
 import Ads from "./Ads";
 import Link from "next/link";
+import Image from "next/image";
 
 interface WeaponDetailClientProps {
   item: string;
@@ -22,7 +23,7 @@ export default function WeaponDetailClient({
 
       <div className="flex items-center justify-center px-5 pb-[20px]">
         <div>
-          <img src={url} alt={item+category} className="max-h-48 max-w-full" />
+          <Image src={url} alt={item+category} className="max-h-48 max-w-full" width={200} height={200} unoptimized />
         </div>
       </div>
 
