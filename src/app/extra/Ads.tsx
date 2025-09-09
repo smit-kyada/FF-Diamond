@@ -1,7 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState, useMemo } from "react";
-import { usePathname } from "next/navigation";
+import { useEffect, useRef, useState } from "react";
 
 declare global {
   interface Window {
