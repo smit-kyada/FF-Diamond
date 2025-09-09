@@ -73,7 +73,11 @@ export default function Ads() {
     window.googletag.cmd.push(() => {
       try {
         // Create responsive size mapping exactly like the HTML
-        const mapping = (window.googletag.sizeMapping() as any)
+        const sizeMappingBuilder = window.googletag.sizeMapping() as {
+          addSize: (viewport: number[], sizes: number[][]) => typeof sizeMappingBuilder;
+          build: () => unknown;
+        };
+        const mapping = sizeMappingBuilder
           .addSize([1280, 768], [[1200, 250]])
           .addSize([1024, 768], [[970, 90], [970, 250]])
           .addSize([800, 450], [[780, 250], [750, 250], [728, 90]])
@@ -92,7 +96,11 @@ export default function Ads() {
 
         if (slot) {
           // Apply size mapping and add service exactly like HTML
-          (slot as any).defineSizeMapping(mapping).addService(window.googletag.pubads());
+          const slotWithMapping = slot as {
+            defineSizeMapping: (mapping: unknown) => typeof slotWithMapping;
+            addService: (service: unknown) => void;
+          };
+          slotWithMapping.defineSizeMapping(mapping).addService(window.googletag.pubads());
           
           // Enable lazy loading like the HTML
           window.googletag.pubads().enableLazyLoad({
