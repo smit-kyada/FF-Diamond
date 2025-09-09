@@ -46,6 +46,9 @@ interface AdsProps {
   style?: React.CSSProperties;
 }
 
+// Global flag to prevent multiple initializations across component remounts
+let globalAdInitialized = false;
+
 export default function Ads({ 
   adUnitPath = "/23308471723/bimbgames-one-BANNER-1",
   sizes = [[300,250],[336,280],[780,250],[750,250],[728,90],[970,250],[970,90],[1200,250]],
@@ -54,16 +57,15 @@ export default function Ads({
 }: AdsProps) {
   const adRef = useRef<HTMLDivElement>(null);
   const currentSlot = useRef<unknown>(null);
-  const isInitialized = useRef(false);
   const [adStatus, setAdStatus] = useState("loading");
   
   // Simple, consistent div ID
   const divId = "div-gpt-ad-slot";
 
   useEffect(() => {
-    // Prevent multiple initializations
-    if (isInitialized.current) {
-      console.log(`⏭️ Ad already initialized, skipping...`);
+    // Prevent multiple initializations using global flag
+    if (globalAdInitialized) {
+      console.log(`⏭️ Ad already initialized globally, skipping...`);
       return;
     }
 
@@ -148,7 +150,7 @@ export default function Ads({
           // Enable services and display
           window.googletag.enableServices();
           window.googletag.display(divId);
-          isInitialized.current = true;
+          globalAdInitialized = true;
           console.log(`✅ New ad slot created and displayed`);
           
         } else {
@@ -177,7 +179,7 @@ export default function Ads({
       }
       
       currentSlot.current = null;
-      isInitialized.current = false;
+      // Don't reset global flag on cleanup to prevent re-initialization
     };
   }, [adUnitPath, sizes]);
 
