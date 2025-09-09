@@ -9,12 +9,14 @@ declare global {
       apiReady?: boolean;
       pubads: () => {
         setLocation: (location: string) => void;
+        setTargeting: (key: string, value: string) => void;
+        enableSingleRequest: () => void;
         getSlots?: () => Array<{
           getSlotElementId: () => string;
         }>;
         addEventListener?: (
           eventName: string,
-          callback: (...args: unknown[]) => void
+          callback: (event: any) => void
         ) => void;
       };
       defineSlot: (
@@ -60,53 +62,62 @@ export default function Ads() {
 
     window.googletag.cmd.push(() => {
       try {
-        // Try different ad unit paths
-        const adUnitPaths = [
-          "/23308471723/bimbgames-one-BANNER-1",
-          "/23308471723/100007-BANNER-1",
-          "/23308471723/bimbgames.one-BANNER-1"
-        ];
+        // Use the confirmed working ad unit path
+        const adUnitPath = "/23308471723/bimbgames-one-BANNER-1";
+        console.log(`🔍 Creating ad slot with: ${adUnitPath}`);
 
-        let slot = null;
-        for (const adUnitPath of adUnitPaths) {
-          try {
-            console.log(`🔍 Trying ad unit: ${adUnitPath}`);
-            slot = window.googletag.defineSlot(
-              adUnitPath,
-              [
-                [300, 250],
-                [336, 280],
-                [320, 50],
-                [728, 90]
-              ],
-              divId
-            );
-            if (slot) {
-              console.log(`✅ Successfully defined slot with: ${adUnitPath}`);
-              break;
-            }
-          } catch (error) {
-            console.warn(`⚠️ Failed to define slot with: ${adUnitPath}`, error);
-          }
-        }
+        const slot = window.googletag.defineSlot(
+          adUnitPath,
+          [
+            [300, 250],
+            [336, 280],
+            [320, 50],
+            [728, 90]
+          ],
+          divId
+        );
 
         if (slot) {
+          // Add targeting parameters to help with ad serving
           slot.addService(window.googletag.pubads());
+          
+          // Set targeting parameters
+          window.googletag.pubads().setTargeting('page', 'home');
+          window.googletag.pubads().setTargeting('section', 'banner');
+          
+          // Enable single request for better performance
+          window.googletag.pubads().enableSingleRequest();
+          
+          // Add event listeners for debugging
+          const pubads = window.googletag.pubads();
+          if (pubads.addEventListener) {
+            pubads.addEventListener('slotRequested', (event: any) => {
+              console.log('📡 Ad slot requested:', event.slot.getSlotElementId());
+            });
+            
+            pubads.addEventListener('slotResponseReceived', (event: any) => {
+              console.log('📨 Ad response received:', event.slot.getSlotElementId());
+            });
+            
+            pubads.addEventListener('slotRenderEnded', (event: any) => {
+              console.log('🎯 Ad render ended:', event.slot.getSlotElementId(), 'Empty:', event.isEmpty);
+              if (event.isEmpty) {
+                console.warn('⚠️ Ad slot is empty - no ad was served');
+                setAdStatus("empty");
+              } else {
+                console.log('✅ Ad successfully rendered');
+                setAdStatus("loaded");
+              }
+            });
+          }
+
+          // Display the ad
           window.googletag.display(divId);
           isInitialized.current = true;
-          setAdStatus("loaded");
-          console.log("✅ Google Ad Manager ad displayed");
+          console.log("✅ Google Ad Manager ad slot created and displayed");
           
-          // Check if ad actually loaded after a delay
-          setTimeout(() => {
-            const adElement = document.getElementById(divId);
-            if (adElement && adElement.children.length === 0) {
-              console.warn("⚠️ Ad container is empty - ad may not have loaded");
-              setAdStatus("empty");
-            }
-          }, 3000);
         } else {
-          console.error("❌ Failed to create any ad slot");
+          console.error("❌ Failed to create ad slot");
           setAdStatus("error");
         }
       } catch (error) {

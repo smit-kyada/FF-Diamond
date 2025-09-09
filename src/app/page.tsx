@@ -3,7 +3,6 @@
 
 // import AdPopupModal from "./extra/AdPopupModal";
 import Ads from "./extra/Ads";
-import TestAd from "./extra/TestAd";
 import "./globals.css";
 import Link from "next/link";
 // import RewardedAd from "./extra/RewardedAd";
@@ -26,7 +25,6 @@ export default function HomePage() {
           </div>
 
           {/* Ad Banner */}
-          <TestAd />
           <Ads />
 
           {/* Navigation Buttons */}
