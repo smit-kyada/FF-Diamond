@@ -7,10 +7,20 @@ declare global {
     googletag: {
       cmd: Array<() => void>;
       apiReady?: boolean;
+      sizeMapping: () => {
+        addSize: (viewport: number[], sizes: number[][]) => any;
+        build: () => any;
+      };
       pubads: () => {
         setLocation: (location: string) => void;
         setTargeting: (key: string, value: string) => void;
         enableSingleRequest: () => void;
+        enableLazyLoad: (config: {
+          fetchMarginPercent: number;
+          renderMarginPercent: number;
+          mobileScaling: number;
+        }) => void;
+        collapseEmptyDivs: () => void;
         getSlots?: () => Array<{
           getSlotElementId: () => string;
         }>;
@@ -24,6 +34,7 @@ declare global {
         size: number[] | number[][],
         divId: string
       ) => {
+        defineSizeMapping: (mapping: any) => any;
         addService: (service: unknown) => void;
       };
       destroySlots: (slots?: unknown[]) => void;
@@ -45,48 +56,53 @@ export default function Ads() {
     }
 
     const divId = "div-gpt-ad-1747205351334-0";
-    console.log("🚀 Initializing Google Ad Manager ad");
+    console.log("🚀 Initializing Google Ad Manager ad (HTML Reference Implementation)");
 
-    // Load GPT script
+    // Load GPT script - using the same URL as the working HTML
     if (!document.getElementById("gpt-script")) {
       const script = document.createElement("script");
       script.id = "gpt-script";
       script.src = "https://securepubads.g.doubleclick.net/tag/js/gpt.js";
       script.async = true;
-      script.crossOrigin = "anonymous";
       document.head.appendChild(script);
     }
 
-    // Initialize googletag
+    // Initialize googletag exactly like the working HTML
     window.googletag = window.googletag || { cmd: [] };
 
     window.googletag.cmd.push(() => {
       try {
-        // Use the confirmed working ad unit path
-        const adUnitPath = "/23308471723/bimbgames-one-BANNER-1";
+        // Create responsive size mapping exactly like the HTML
+        const mapping = window.googletag.sizeMapping()
+          .addSize([1280, 768], [[1200, 250]])
+          .addSize([1024, 768], [[970, 90], [970, 250]])
+          .addSize([800, 450], [[780, 250], [750, 250], [728, 90]])
+          .addSize([0, 0], [[300, 250], [336, 280]])
+          .build();
+
+        // Use the same ad unit path as the working HTML
+        const adUnitPath = "/23308471723/gamespowerplay-com-BANNER-1";
         console.log(`🔍 Creating ad slot with: ${adUnitPath}`);
 
         const slot = window.googletag.defineSlot(
           adUnitPath,
-          [
-            [300, 250],
-            [336, 280],
-            [320, 50],
-            [728, 90]
-          ],
+          [[300,250],[336,280],[780,250],[750,250],[728,90],[970,250],[970,90],[1200,250]],
           divId
         );
 
         if (slot) {
-          // Add targeting parameters to help with ad serving
-          slot.addService(window.googletag.pubads());
+          // Apply size mapping and add service exactly like HTML
+          slot.defineSizeMapping(mapping).addService(window.googletag.pubads());
           
-          // Set targeting parameters
-          window.googletag.pubads().setTargeting('page', 'home');
-          window.googletag.pubads().setTargeting('section', 'banner');
-          
-          // Enable single request for better performance
-          window.googletag.pubads().enableSingleRequest();
+          // Enable lazy loading like the HTML
+          window.googletag.pubads().enableLazyLoad({
+            fetchMarginPercent: 100,
+            renderMarginPercent: 50,
+            mobileScaling: 2.0
+          });
+
+          // Collapse empty divs like the HTML
+          window.googletag.pubads().collapseEmptyDivs();
           
           // Add event listeners for debugging
           const pubads = window.googletag.pubads();
@@ -117,10 +133,11 @@ export default function Ads() {
             });
           }
 
-          // Display the ad
+          // Enable services and display exactly like HTML
+          window.googletag.enableServices();
           window.googletag.display(divId);
           isInitialized.current = true;
-          console.log("✅ Google Ad Manager ad slot created and displayed");
+          console.log("✅ Google Ad Manager ad slot created and displayed (HTML Reference)");
           
         } else {
           console.error("❌ Failed to create ad slot");
@@ -174,7 +191,7 @@ export default function Ads() {
       {/* Debug info */}
       {process.env.NODE_ENV === 'development' && (
         <div style={{ fontSize: "10px", color: "#999", marginTop: "5px", textAlign: "center" }}>
-          Status: {adStatus} | Ad Unit: /23308471723/bimbgames-one-BANNER-1
+          Status: {adStatus} | Ad Unit: /23308471723/gamespowerplay-com-BANNER-1
         </div>
       )}
     </div>
