@@ -77,92 +77,108 @@ export default function Ads({
     // Initialize googletag
     window.googletag = window.googletag || { cmd: [] };
 
-    window.googletag.cmd.push(() => {
-      try {
-        // Create responsive size mapping
-        const sizeMappingBuilder = window.googletag.sizeMapping() as {
-          addSize: (viewport: number[], sizes: number[][]) => typeof sizeMappingBuilder;
-          build: () => unknown;
-        };
-        const mapping = sizeMappingBuilder
-          .addSize([1280, 768], [[1200, 250]])
-          .addSize([1024, 768], [[970, 90], [970, 250]])
-          .addSize([800, 450], [[780, 250], [750, 250], [728, 90]])
-          .addSize([0, 0], [[300, 250], [336, 280]])
-          .build();
+    // Wait for the DOM element to be available
+    const initializeAd = () => {
+      // Check if the div element exists in the DOM
+      const adElement = document.getElementById(divId);
+      if (!adElement) {
+        console.log(`⏳ Waiting for DOM element: ${divId}`);
+        setTimeout(initializeAd, 100);
+        return;
+      }
 
-        console.log(`🔍 Creating ad slot with: ${adUnitPath} for div: ${divId}`);
+      console.log(`✅ DOM element found: ${divId}`);
 
-        const slot = window.googletag.defineSlot(
-          adUnitPath,
-          sizes,
-          divId
-        );
-
-        if (slot) {
-          // Store reference to current slot for cleanup
-          currentSlot.current = slot;
-          
-          // Apply size mapping and add service
-          const slotWithMapping = slot as {
-            defineSizeMapping: (mapping: unknown) => typeof slotWithMapping;
-            addService: (service: unknown) => void;
+      window.googletag.cmd.push(() => {
+        try {
+          // Create responsive size mapping
+          const sizeMappingBuilder = window.googletag.sizeMapping() as {
+            addSize: (viewport: number[], sizes: number[][]) => typeof sizeMappingBuilder;
+            build: () => unknown;
           };
-          slotWithMapping.defineSizeMapping(mapping).addService(window.googletag.pubads());
+          const mapping = sizeMappingBuilder
+            .addSize([1280, 768], [[1200, 250]])
+            .addSize([1024, 768], [[970, 90], [970, 250]])
+            .addSize([800, 450], [[780, 250], [750, 250], [728, 90]])
+            .addSize([0, 0], [[300, 250], [336, 280]])
+            .build();
 
-          // Collapse empty divs
-          window.googletag.pubads().collapseEmptyDivs();
-          
-          // Add event listeners for debugging
-          const pubads = window.googletag.pubads();
-          if (pubads.addEventListener) {
-            pubads.addEventListener('slotRequested', (event: unknown) => {
-              const slotEvent = event as { slot: { getSlotElementId: () => string } };
-              if (slotEvent.slot.getSlotElementId() === divId) {
-                console.log('📡 Ad slot requested:', slotEvent.slot.getSlotElementId());
-              }
-            });
+          console.log(`🔍 Creating ad slot with: ${adUnitPath} for div: ${divId}`);
+
+          const slot = window.googletag.defineSlot(
+            adUnitPath,
+            sizes,
+            divId
+          );
+
+          if (slot) {
+            // Store reference to current slot for cleanup
+            currentSlot.current = slot;
             
-            pubads.addEventListener('slotResponseReceived', (event: unknown) => {
-              const slotEvent = event as { slot: { getSlotElementId: () => string } };
-              if (slotEvent.slot.getSlotElementId() === divId) {
-                console.log('📨 Ad response received:', slotEvent.slot.getSlotElementId());
-              }
-            });
+            // Apply size mapping and add service
+            const slotWithMapping = slot as {
+              defineSizeMapping: (mapping: unknown) => typeof slotWithMapping;
+              addService: (service: unknown) => void;
+            };
+            slotWithMapping.defineSizeMapping(mapping).addService(window.googletag.pubads());
+
+            // Collapse empty divs
+            window.googletag.pubads().collapseEmptyDivs();
             
-            pubads.addEventListener('slotRenderEnded', (event: unknown) => {
-              const slotEvent = event as { 
-                slot: { getSlotElementId: () => string }; 
-                isEmpty: boolean 
-              };
-              if (slotEvent.slot.getSlotElementId() === divId) {
-                console.log('🎯 Ad render ended:', slotEvent.slot.getSlotElementId(), 'Empty:', slotEvent.isEmpty);
-                if (slotEvent.isEmpty) {
-                  console.warn('⚠️ Ad slot is empty - no ad was served');
-                  setAdStatus("empty");
-                } else {
-                  console.log('✅ Ad successfully rendered');
-                  setAdStatus("loaded");
+            // Add event listeners for debugging
+            const pubads = window.googletag.pubads();
+            if (pubads.addEventListener) {
+              pubads.addEventListener('slotRequested', (event: unknown) => {
+                const slotEvent = event as { slot: { getSlotElementId: () => string } };
+                if (slotEvent.slot.getSlotElementId() === divId) {
+                  console.log('📡 Ad slot requested:', slotEvent.slot.getSlotElementId());
                 }
-              }
-            });
-          }
+              });
+              
+              pubads.addEventListener('slotResponseReceived', (event: unknown) => {
+                const slotEvent = event as { slot: { getSlotElementId: () => string } };
+                if (slotEvent.slot.getSlotElementId() === divId) {
+                  console.log('📨 Ad response received:', slotEvent.slot.getSlotElementId());
+                }
+              });
+              
+              pubads.addEventListener('slotRenderEnded', (event: unknown) => {
+                const slotEvent = event as { 
+                  slot: { getSlotElementId: () => string }; 
+                  isEmpty: boolean 
+                };
+                if (slotEvent.slot.getSlotElementId() === divId) {
+                  console.log('🎯 Ad render ended:', slotEvent.slot.getSlotElementId(), 'Empty:', slotEvent.isEmpty);
+                  if (slotEvent.isEmpty) {
+                    console.warn('⚠️ Ad slot is empty - no ad was served');
+                    setAdStatus("empty");
+                  } else {
+                    console.log('✅ Ad successfully rendered');
+                    setAdStatus("loaded");
+                  }
+                }
+              });
+            }
 
-          // Enable services and display
-          window.googletag.enableServices();
-          window.googletag.display(divId);
-          isInitialized.current = true;
-          console.log(`✅ Google Ad Manager ad slot created and displayed for: ${divId}`);
-          
-        } else {
-          console.error("❌ Failed to create ad slot");
+            // Enable services and display
+            window.googletag.enableServices();
+            window.googletag.display(divId);
+            isInitialized.current = true;
+            console.log(`✅ Google Ad Manager ad slot created and displayed for: ${divId}`);
+            
+          } else {
+            console.error("❌ Failed to create ad slot");
+            setAdStatus("error");
+          }
+        } catch (error) {
+          console.error("❌ Ad initialization error:", error);
           setAdStatus("error");
         }
-      } catch (error) {
-        console.error("❌ Ad initialization error:", error);
-        setAdStatus("error");
-      }
-    });
+      });
+    };
+
+    // Start the initialization process
+    initializeAd();
 
     // Cleanup function - destroy slot when component unmounts
     return () => {
@@ -201,11 +217,7 @@ export default function Ads({
           justifyContent: "center"
         }}
       >
-        {adStatus === "loading" && (
-          <div style={{ color: "#666", fontSize: "14px" }}>
-            Loading ad...
-          </div>
-        )}
+        {/* Only show error states, no loading message */}
         {adStatus === "empty" && (
           <div style={{ color: "#ff6b6b", fontSize: "14px" }}>
             Ad not available
