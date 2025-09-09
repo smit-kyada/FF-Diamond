@@ -1,12 +1,10 @@
 'use client';
-// app/tools/page.tsx
  
 import BackHeader from "../BackHeader";
 import Ads from "../extra/Ads";
 import Link from "next/link";
 import Image from "next/image";
 import { useEffect } from "react";
-// import RewardedAd from "../extra/RewardedAd";
 
 export default function ToolsPage() {
   useEffect(() => {

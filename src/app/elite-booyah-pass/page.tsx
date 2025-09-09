@@ -7,7 +7,6 @@ import { useEffect } from "react";
 import BackHeader from "../BackHeader";
 import Ads from "../extra/Ads";
 import Link from "next/link";
-// import RewardedAd from "../extra/RewardedAd";
 
 export default function EliteBooyahPass() {
   useEffect(() => {
