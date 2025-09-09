@@ -1,13 +1,6 @@
 import "./globals.css";
 import type { Metadata } from "next";
 
-// Declare gtag function for TypeScript
-declare global {
-  interface Window {
-    gtag: (command: string, targetId: string, config?: any) => void;
-  }
-}
-
 export const metadata: Metadata = {
   title: "Get Diamonds",
   description:
@@ -47,22 +40,6 @@ export default function RootLayout({
               function gtag(){dataLayer.push(arguments);}
               gtag('js', new Date());
               gtag('config', 'G-L7LWYD1HES');
-            `,
-          }}
-        />
-
-        {/* Google Analytics (gtag.js) */}
-        <script
-          async
-          src="https://www.googletagmanager.com/gtag/js?id=G-L7LWYsscD1HES"
-        />
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              window.dataLayer = window.dataLayer || [];
-              function gtag(){dataLayer.push(arguments);}
-              gtag('js', new Date());
-              gtag('config', 'G-L7LWYsscD1HES');
             `,
           }}
         />
