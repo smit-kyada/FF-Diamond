@@ -36,16 +36,27 @@ export default function Ads() {
   const pathname = usePathname();
   const [adLoaded, setAdLoaded] = useState(false);
   const [adError, setAdError] = useState<string | null>(null);
+  const [isInitialized, setIsInitialized] = useState(false);
 
   useEffect(() => {
     const divId = "div-gpt-ad-1747205351334-0";
     console.log("🚀 Initializing Google Ad Manager ads for pathname:", pathname);
 
-    // Clear previous ad contents
+    // Prevent multiple initializations
+    if (isInitialized) {
+      console.log("⚠️ Ad already initialized, skipping");
+      return;
+    }
+
+    // Clear previous ad contents safely
     const adDiv = document.getElementById(divId);
     if (adDiv) {
-      adDiv.innerHTML = "";
-      console.log("🧹 Cleared previous ad content");
+      try {
+        adDiv.innerHTML = "";
+        console.log("🧹 Cleared previous ad content");
+      } catch (error) {
+        console.warn("⚠️ Could not clear ad content:", error);
+      }
     }
 
     // Load Google Ad Manager (GPT) script
@@ -87,14 +98,25 @@ export default function Ads() {
 
           window.googletag.cmd.push(() => {
             try {
-              // Destroy previous slots to avoid conflicts
-              const slots = window.googletag.pubads().getSlots?.() || [];
-              const existingSlot = slots.find((s) =>
-                s.getSlotElementId?.() === divId
-              );
-              if (existingSlot) {
-                window.googletag.destroySlots([existingSlot]);
-                console.log("🗑️ Destroyed existing ad slot");
+              // Safely destroy previous slots to avoid conflicts
+              try {
+                const slots = window.googletag.pubads().getSlots?.() || [];
+                const existingSlot = slots.find((s) =>
+                  s.getSlotElementId?.() === divId
+                );
+                if (existingSlot) {
+                  // Check if the slot element still exists in DOM before destroying
+                  const slotElement = document.getElementById(divId);
+                  if (slotElement && slotElement.parentNode) {
+                    window.googletag.destroySlots([existingSlot]);
+                    console.log("🗑️ Destroyed existing ad slot");
+                  } else {
+                    console.log("⚠️ Slot element not found in DOM, skipping destroy");
+                  }
+                }
+              } catch (destroyError) {
+                console.warn("⚠️ Error destroying previous slots:", destroyError);
+                // Continue with ad creation even if destroy fails
               }
 
               // Define new ad slot
@@ -111,6 +133,7 @@ export default function Ads() {
                 slot.addService(window.googletag.pubads());
                 window.googletag.display(divId);
                 setAdLoaded(true);
+                setIsInitialized(true);
                 console.log("✅ Google Ad Manager ad slot created and displayed");
               } else {
                 console.error("❌ Failed to create ad slot");
@@ -128,7 +151,11 @@ export default function Ads() {
         }
       }, 100);
 
-      return () => clearInterval(interval);
+      return () => {
+        clearInterval(interval);
+        // Safe cleanup - don't try to destroy slots on unmount
+        console.log("🧹 Component unmounting, skipping slot cleanup");
+      };
     };
 
     // Load script and initialize ad
@@ -136,7 +163,7 @@ export default function Ads() {
     const cleanup = initializeAd();
     return cleanup;
 
-  }, [pathname]);
+  }, [pathname, isInitialized]);
 
   return (
     <div className="ad-container">
