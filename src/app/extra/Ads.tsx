@@ -4,7 +4,27 @@ import { useEffect, useRef, useState } from "react";
 
 declare global {
   interface Window {
-    googletag: any;
+    googletag: {
+      cmd: Array<() => void>;
+      sizeMapping: () => {
+        addSize: (viewport: number[], sizes: number[][]) => unknown;
+        build: () => unknown;
+      };
+      pubads: () => {
+        getSlots?: () => Array<{
+          getSlotElementId: () => string;
+        }>;
+        addEventListener: (eventName: string, callback: (event: unknown) => void) => void;
+        collapseEmptyDivs: () => void;
+      };
+      defineSlot: (adUnitPath: string, size: number[][], divId: string) => {
+        defineSizeMapping: (mapping: unknown) => unknown;
+        addService: (service: unknown) => void;
+      };
+      destroySlots: (slots?: unknown[]) => void;
+      enableServices: () => void;
+      display: (divId: string) => void;
+    };
   }
 }
 
@@ -30,7 +50,7 @@ export default function Ads({
   className = "",
   style = {},
 }: AdsProps) {
-  const currentSlot = useRef<any>(null);
+  const currentSlot = useRef<unknown>(null);
   const [adStatus, setAdStatus] = useState("loading");
   const initialized = useRef(false);
 
@@ -58,24 +78,27 @@ export default function Ads({
       try {
         const pubads = window.googletag.pubads();
 
-        // Destroy only if same divId slot exists
-        const existingSlots =
-          pubads.getSlots?.().filter(
-            (slot: any) => slot.getSlotElementId() === divId
-          ) || [];
+         // Destroy only if same divId slot exists
+         const existingSlots =
+           pubads.getSlots?.().filter(
+             (slot: { getSlotElementId: () => string }) => slot.getSlotElementId() === divId
+           ) || [];
         if (existingSlots.length > 0) {
           window.googletag.destroySlots(existingSlots);
           console.log(`🗑️ Destroyed ${existingSlots.length} old slot(s)`);
         }
 
-        // ✅ Size mapping
-        const mapping = window.googletag
-          .sizeMapping()
-          .addSize([0, 0], [
-            [300, 250],
-            [336, 280],
-          ])
-          .build();
+         // ✅ Size mapping
+         const sizeMappingBuilder = window.googletag.sizeMapping() as {
+           addSize: (viewport: number[], sizes: number[][]) => typeof sizeMappingBuilder;
+           build: () => unknown;
+         };
+         const mapping = sizeMappingBuilder
+           .addSize([0, 0], [
+             [300, 250],
+             [336, 280],
+           ])
+           .build();
 
         console.log(`🔍 Creating new ad slot with: ${adUnitPath}`);
 
@@ -83,16 +106,24 @@ export default function Ads({
         if (slot) {
           currentSlot.current = slot;
 
-          slot.defineSizeMapping(mapping).addService(pubads);
+          const slotWithMapping = slot as {
+            defineSizeMapping: (mapping: unknown) => typeof slotWithMapping;
+            addService: (service: unknown) => void;
+          };
+          slotWithMapping.defineSizeMapping(mapping).addService(pubads);
 
           pubads.collapseEmptyDivs();
 
-          pubads.addEventListener("slotRenderEnded", (event: any) => {
-            if (event.slot.getSlotElementId() === divId) {
-              console.log("🎯 Ad render ended - Empty:", event.isEmpty);
-              setAdStatus(event.isEmpty ? "empty" : "loaded");
-            }
-          });
+           pubads.addEventListener("slotRenderEnded", (event: unknown) => {
+             const slotEvent = event as {
+               slot: { getSlotElementId: () => string };
+               isEmpty: boolean;
+             };
+             if (slotEvent.slot.getSlotElementId() === divId) {
+               console.log("🎯 Ad render ended - Empty:", slotEvent.isEmpty);
+               setAdStatus(slotEvent.isEmpty ? "empty" : "loaded");
+             }
+           });
 
           window.googletag.enableServices();
           window.googletag.display(divId);
