@@ -5,9 +5,20 @@ import BackHeader from "../BackHeader";
 import Ads from "../extra/Ads";
 import Link from "next/link";
 import Image from "next/image";
+import { useEffect } from "react";
 // import RewardedAd from "../extra/RewardedAd";
 
 export default function FreeDiamonPage() {
+  useEffect(() => {
+    if (typeof window !== 'undefined' && window.gtag) {
+      window.gtag('event', 'conversion', {
+        'send_to': 'AW-17352841307/yfZmCPPR6I0bENuwvdJA',
+        'value': 1.0,
+        'currency': 'INR'
+      });
+    }
+  }, []);
+
   return (
     <div className="max-w-[390px] sm:max-w-[360px] mx-auto pt-24 flex flex-col gap-5">
       {/* <RewardedAd /> */}
