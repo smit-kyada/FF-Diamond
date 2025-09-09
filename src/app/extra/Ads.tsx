@@ -54,12 +54,19 @@ export default function Ads({
 }: AdsProps) {
   const adRef = useRef<HTMLDivElement>(null);
   const currentSlot = useRef<unknown>(null);
+  const isInitialized = useRef(false);
   const [adStatus, setAdStatus] = useState("loading");
   
   // Simple, consistent div ID
   const divId = "div-gpt-ad-slot";
 
   useEffect(() => {
+    // Prevent multiple initializations
+    if (isInitialized.current) {
+      console.log(`⏭️ Ad already initialized, skipping...`);
+      return;
+    }
+
     console.log(`🚀 Initializing Google Ad Manager ad (Simple approach)`);
 
     // Load GPT script if not already loaded
@@ -141,6 +148,7 @@ export default function Ads({
           // Enable services and display
           window.googletag.enableServices();
           window.googletag.display(divId);
+          isInitialized.current = true;
           console.log(`✅ New ad slot created and displayed`);
           
         } else {
@@ -169,6 +177,7 @@ export default function Ads({
       }
       
       currentSlot.current = null;
+      isInitialized.current = false;
     };
   }, [adUnitPath, sizes]);
 
@@ -181,7 +190,6 @@ export default function Ads({
           minWidth: "300px", 
           minHeight: "90px", 
           textAlign: "center",
-          border: "1px solid #ddd",
           display: "flex",
           alignItems: "center",
           justifyContent: "center"
