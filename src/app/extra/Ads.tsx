@@ -94,9 +94,6 @@ export default function Ads({
           build: () => unknown;
         };
         const mapping = sizeMappingBuilder
-          .addSize([1280, 768], [[1200, 250]])
-          .addSize([1024, 768], [[970, 90], [970, 250]])
-          .addSize([800, 450], [[780, 250], [750, 250], [728, 90]])
           .addSize([0, 0], [[300, 250], [336, 280]])
           .build();
 
@@ -185,7 +182,6 @@ export default function Ads({
           minHeight: "90px", 
           textAlign: "center",
           border: "1px solid #ddd",
-          backgroundColor: "#f9f9f9",
           display: "flex",
           alignItems: "center",
           justifyContent: "center"
