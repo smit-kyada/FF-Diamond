@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import BackHeader from "@/app/BackHeader";
 import "../../success/sucess.css";
 import Ads from "@/app/extra/Ads";
+import Image from "next/image";
 // import RewardedAd from "../../extra/RewardedAd";
 
 export default function CharatersPage() {
@@ -65,10 +66,13 @@ export default function CharatersPage() {
             }}
           >
             <div className="h-36 w-[67px] bg-transparent relative z-20">
-              <img
+              <Image
                 className="h-full w-full object-contain bg-transparent"
                 src={`/resources/pets/${tool.name}.png`}
                 alt={tool.name}
+                width={67}
+                height={144}
+                unoptimized
               />
             </div>
             <div className="z-10 absolute left-0 bottom-0 border border-white/50 bg-white/15 backdrop-blur-[6px] w-full h-[95px] rounded-2xl overflow-hidden"></div>
@@ -94,7 +98,7 @@ export default function CharatersPage() {
             Pet abilities range from defensive skills like damage reduction and healing to offensive boosts like increased damage and faster reload times. Some pets provide utility benefits like faster looting or increased inventory space.
           </p>
           <p className="text-gray-300 text-sm leading-relaxed">
-            Choosing the right pet for your playstyle can make a significant difference in your performance. Whether you prefer aggressive combat or defensive survival, there's a perfect pet companion waiting to help you achieve victory!
+            Choosing the right pet for your playstyle can make a significant difference in your performance. Whether you prefer aggressive combat or defensive survival, there&apos;s a perfect pet companion waiting to help you achieve victory!
           </p>
         </div>
       </div>

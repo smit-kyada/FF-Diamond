@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import BackHeader from "../../../BackHeader";
 import Ads from "@/app/extra/Ads";
 import Link from "next/link";
+import Image from "next/image";
 // import RewardedAd from "../../../extra/RewardedAd";
 
 // Sample JSON data (this would typically come from an API or file)
@@ -44,7 +45,7 @@ export default async function CharacterPage({
 
       <div className="flex items-center justify-center px-5 pb-[20px]">
         <div>
-          <img src={`/resources/emotes/${tool.name}.png`} alt="lila" className="max-h-48 max-w-full" />
+          <Image src={`/resources/emotes/${tool.name}.png`} alt="lila" className="max-h-48 max-w-full" width={200} height={200} unoptimized />
         </div>
       </div>
 

@@ -4,6 +4,7 @@
 import BackHeader from "../BackHeader";
 import Ads from "../extra/Ads";
 import Link from "next/link";
+import Image from "next/image";
 // import RewardedAd from "../extra/RewardedAd";
 
 export default function ToolsPage() {
@@ -45,7 +46,7 @@ export default function ToolsPage() {
           } ${index === tools.length - 1 ? "pb-10" : ""}`}
         >
           <Link href={tool.path || `/tools/${tool.name}`}>
-            <img src={tool.image} alt={tool.name} className="w-full" />
+            <Image src={tool.image} alt={tool.name} className="w-full" width={200} height={200} unoptimized />
           </Link>
         </div>
       ))}
@@ -58,7 +59,7 @@ export default function ToolsPage() {
             Our comprehensive Free Fire tools help you master the game with detailed information about characters, weapons, pets, and emotes. Each character in Free Fire has unique abilities that can turn the tide of battle.
           </p>
           <p className="text-gray-300 text-sm leading-relaxed mb-3">
-            From Alok's healing ability to Chrono's time manipulation, understanding character skills is crucial for victory. Weapons range from close-combat shotguns to long-range sniper rifles, each with distinct damage, range, and fire rate statistics.
+            From Alok&apos;s healing ability to Chrono&apos;s time manipulation, understanding character skills is crucial for victory. Weapons range from close-combat shotguns to long-range sniper rifles, each with distinct damage, range, and fire rate statistics.
           </p>
           <p className="text-gray-300 text-sm leading-relaxed mb-3">
             Pets provide valuable support with abilities like increased movement speed, armor protection, and healing bonuses. Emotes allow players to express themselves and can even be used strategically to distract opponents.

@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import BackHeader from "@/app/BackHeader";
 import "../../success/sucess.css";
 import Ads from "@/app/extra/Ads";
+import Image from "next/image";
 // // import RewardedAd from "../../extra/RewardedAd";
 
 export default function CharatersPage() {
@@ -47,10 +48,13 @@ export default function CharatersPage() {
             }}
           >
             <div className="h-36 w-[67px] bg-transparent relative z-20">
-              <img
+              <Image
                 className="h-full w-full object-contain bg-transparent"
                 src={`/resources/emotes/${tool.name.toLocaleUpperCase()}.png`}
                 alt={tool.name}
+                width={67}
+                height={144}
+                unoptimized
               />
             </div>
             <div className="z-10 absolute left-0 bottom-0 border border-white/50 bg-white/15 backdrop-blur-[6px] w-full h-[95px] rounded-2xl overflow-hidden"></div>
