@@ -4,6 +4,7 @@
 import BackHeader from "../../BackHeader";
 import Ads from "@/app/extra/Ads";
 import Link from "next/link";
+import Image from "next/image";
 // import RewardedAd from "../../extra/RewardedAd";
 
 export default function elitePage() {
@@ -44,10 +45,13 @@ export default function elitePage() {
                   {tool.name2}
                 </div>
               </div>
-              <img
+              <Image
                 className="object-contain w-[91px] cursor-pointer"
                 alt="elite-button"
                 src="/resources/elite-btn.png"
+                width={91}
+                height={40}
+                unoptimized
               />
             </div>
           </Link>

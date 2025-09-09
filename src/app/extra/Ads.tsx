@@ -16,7 +16,7 @@ declare global {
         }>;
         addEventListener?: (
           eventName: string,
-          callback: (event: any) => void
+          callback: (event: unknown) => void
         ) => void;
       };
       defineSlot: (
@@ -91,17 +91,23 @@ export default function Ads() {
           // Add event listeners for debugging
           const pubads = window.googletag.pubads();
           if (pubads.addEventListener) {
-            pubads.addEventListener('slotRequested', (event: any) => {
-              console.log('📡 Ad slot requested:', event.slot.getSlotElementId());
+            pubads.addEventListener('slotRequested', (event: unknown) => {
+              const slotEvent = event as { slot: { getSlotElementId: () => string } };
+              console.log('📡 Ad slot requested:', slotEvent.slot.getSlotElementId());
             });
             
-            pubads.addEventListener('slotResponseReceived', (event: any) => {
-              console.log('📨 Ad response received:', event.slot.getSlotElementId());
+            pubads.addEventListener('slotResponseReceived', (event: unknown) => {
+              const slotEvent = event as { slot: { getSlotElementId: () => string } };
+              console.log('📨 Ad response received:', slotEvent.slot.getSlotElementId());
             });
             
-            pubads.addEventListener('slotRenderEnded', (event: any) => {
-              console.log('🎯 Ad render ended:', event.slot.getSlotElementId(), 'Empty:', event.isEmpty);
-              if (event.isEmpty) {
+            pubads.addEventListener('slotRenderEnded', (event: unknown) => {
+              const slotEvent = event as { 
+                slot: { getSlotElementId: () => string }; 
+                isEmpty: boolean 
+              };
+              console.log('🎯 Ad render ended:', slotEvent.slot.getSlotElementId(), 'Empty:', slotEvent.isEmpty);
+              if (slotEvent.isEmpty) {
                 console.warn('⚠️ Ad slot is empty - no ad was served');
                 setAdStatus("empty");
               } else {
