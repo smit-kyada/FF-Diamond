@@ -296,13 +296,13 @@ export default function CharatersPage() {
             Free Fire features over 40 unique characters, each with special abilities that can change the course of battle. From healing specialists to combat experts, choosing the right character is crucial for your strategy.
           </p>
           <p className="text-gray-300 text-sm leading-relaxed mb-3">
-            Popular characters include Alok with his healing ability "Drop the Beat", Chrono with time manipulation powers, and K with his "Master of All" skill. Each character has different skill levels and can be upgraded using character fragments.
+            Popular characters include Alok with his healing ability &quot;Drop the Beat&quot;, Chrono with time manipulation powers, and K with his &quot;Master of All&quot; skill. Each character has different skill levels and can be upgraded using character fragments.
           </p>
           <p className="text-gray-300 text-sm leading-relaxed mb-3">
             Character abilities range from passive skills that provide constant benefits to active skills with cooldown periods. Some characters excel in team play while others are perfect for solo survival.
           </p>
           <p className="text-gray-300 text-sm leading-relaxed">
-            Understanding each character's strengths and weaknesses will help you build the perfect team composition and dominate the battlefield. Choose wisely and adapt your playstyle to maximize your character's potential!
+            Understanding each character&apos;s strengths and weaknesses will help you build the perfect team composition and dominate the battlefield. Choose wisely and adapt your playstyle to maximize your character&apos;s potential!
           </p>
         </div>
       </div>

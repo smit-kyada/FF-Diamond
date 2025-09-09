@@ -57,7 +57,7 @@ export default function PlayersPage() {
             Understanding different player types helps you predict enemy behavior and develop counter-strategies. Pro players often use advanced techniques like quick-scoping and advanced movement, while casual players might focus more on survival and exploration.
           </p>
           <p className="text-gray-300 text-sm leading-relaxed mb-3">
-            The Free Fire community is known for its creativity and innovation, with players constantly discovering new strategies, weapon combinations, and character synergies. Whether you're a competitive player aiming for the top ranks or a casual player enjoying the game with friends, there's always something new to learn and master.
+            The Free Fire community is known for its creativity and innovation, with players constantly discovering new strategies, weapon combinations, and character synergies. Whether you&apos;re a competitive player aiming for the top ranks or a casual player enjoying the game with friends, there&apos;s always something new to learn and master.
           </p>
           <p className="text-gray-300 text-sm leading-relaxed">
             Join the vibrant Free Fire community and discover your own unique playstyle. Whether you prefer aggressive combat, strategic positioning, or supportive teamwork, Free Fire offers endless opportunities for growth and improvement in the ultimate battle royale experience!

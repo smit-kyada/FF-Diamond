@@ -53,7 +53,7 @@ export default function ToolsPage() {
         <div className="bg-gradient-to-r from-amber-500/20 to-yellow-500/20 p-4 rounded-lg border border-amber-500/30">
           <h3 className="text-white font-bold text-lg mb-3">💰 Free Fire Currency System</h3>
           <p className="text-gray-300 text-sm leading-relaxed mb-3">
-            Free Fire coins are the primary premium currency in the game, allowing players to purchase exclusive items, character skins, weapon skins, and other premium content. Coins provide access to the game's most sought-after items and customization options.
+            Free Fire coins are the primary premium currency in the game, allowing players to purchase exclusive items, character skins, weapon skins, and other premium content. Coins provide access to the game&apos;s most sought-after items and customization options.
           </p>
           <p className="text-gray-300 text-sm leading-relaxed mb-3">
             The coin system offers various packages to accommodate different player needs and budgets. Smaller packages are perfect for casual players who want to make occasional purchases, while larger packages provide better value for dedicated players and content creators.
@@ -65,7 +65,7 @@ export default function ToolsPage() {
             The Free Fire economy is designed to provide fair value for your investment, with regular events and promotions that offer bonus coins or discounted prices. Players can also earn coins through gameplay achievements, daily missions, and special events.
           </p>
           <p className="text-gray-300 text-sm leading-relaxed">
-            Whether you're looking to customize your character, acquire powerful weapon skins, or participate in exclusive events, Free Fire coins give you the flexibility to enhance your gaming experience and stand out on the battlefield!
+            Whether you&apos;re looking to customize your character, acquire powerful weapon skins, or participate in exclusive events, Free Fire coins give you the flexibility to enhance your gaming experience and stand out on the battlefield!
           </p>
         </div>
       </div>

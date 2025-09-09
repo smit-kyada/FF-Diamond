@@ -295,7 +295,7 @@ export default async function CharacterPage({
             {tool.name} is a unique character in Free Fire with special abilities that can turn the tide of battle. Each character brings their own strategic advantages to help you survive and dominate the battlefield.
           </p>
           <p className="text-gray-300 text-sm leading-relaxed mb-3">
-            Character abilities in Free Fire range from healing and support skills to offensive and defensive powers. Understanding your character's strengths and weaknesses is crucial for developing effective strategies.
+            Character abilities in Free Fire range from healing and support skills to offensive and defensive powers. Understanding your character&apos;s strengths and weaknesses is crucial for developing effective strategies.
           </p>
           <p className="text-gray-300 text-sm leading-relaxed">
             Master {tool.name}&apos;s abilities and combine them with the right weapons and tactics to achieve victory in Free Fire&apos;s intense battle royale matches!
