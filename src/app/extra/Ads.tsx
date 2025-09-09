@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { usePathname } from "next/navigation";
 
 declare global {
   interface Window {
@@ -15,11 +16,6 @@ declare global {
         setLocation: (location: string) => void;
         setTargeting: (key: string, value: string) => void;
         enableSingleRequest: () => void;
-        enableLazyLoad: (config: {
-          fetchMarginPercent: number;
-          renderMarginPercent: number;
-          mobileScaling: number;
-        }) => void;
         collapseEmptyDivs: () => void;
         getSlots?: () => Array<{
           getSlotElementId: () => string;
@@ -44,21 +40,32 @@ declare global {
   }
 }
 
-export default function Ads() {
+interface AdsProps {
+  adUnitPath?: string;
+  sizes?: number[][];
+  className?: string;
+  style?: React.CSSProperties;
+}
+
+export default function Ads({ 
+  adUnitPath = "/23308471723/bimbgames-one-BANNER-1",
+  sizes = [[300,250],[336,280],[780,250],[750,250],[728,90],[970,250],[970,90],[1200,250]],
+  className = "",
+  style = {}
+}: AdsProps) {
   const adRef = useRef<HTMLDivElement>(null);
   const isInitialized = useRef(false);
+  const currentSlot = useRef<unknown>(null);
   const [adStatus, setAdStatus] = useState("loading");
+  const pathname = usePathname();
+  
+  // Generate unique div ID based on pathname and timestamp
+  const divId = `div-gpt-ad-${pathname.replace(/\//g, '-')}-${Date.now()}`;
 
   useEffect(() => {
-    // Prevent multiple initializations
-    if (isInitialized.current) {
-      return;
-    }
+    console.log(`🚀 Initializing Google Ad Manager ad for: ${pathname} (Unique ID: ${divId})`);
 
-    const divId = "div-gpt-ad-1747205351334-0";
-    console.log("🚀 Initializing Google Ad Manager ad (HTML Reference Implementation)");
-
-    // Load GPT script - using the same URL as the working HTML
+    // Load GPT script if not already loaded
     if (!document.getElementById("gpt-script")) {
       const script = document.createElement("script");
       script.id = "gpt-script";
@@ -67,12 +74,12 @@ export default function Ads() {
       document.head.appendChild(script);
     }
 
-    // Initialize googletag exactly like the working HTML
+    // Initialize googletag
     window.googletag = window.googletag || { cmd: [] };
 
     window.googletag.cmd.push(() => {
       try {
-        // Create responsive size mapping exactly like the HTML
+        // Create responsive size mapping
         const sizeMappingBuilder = window.googletag.sizeMapping() as {
           addSize: (viewport: number[], sizes: number[][]) => typeof sizeMappingBuilder;
           build: () => unknown;
@@ -84,32 +91,26 @@ export default function Ads() {
           .addSize([0, 0], [[300, 250], [336, 280]])
           .build();
 
-        // Use your ad unit path
-        const adUnitPath = "/23308471723/bimbgames-one-BANNER-1";
-        console.log(`🔍 Creating ad slot with: ${adUnitPath}`);
+        console.log(`🔍 Creating ad slot with: ${adUnitPath} for div: ${divId}`);
 
         const slot = window.googletag.defineSlot(
           adUnitPath,
-          [[300,250],[336,280],[780,250],[750,250],[728,90],[970,250],[970,90],[1200,250]],
+          sizes,
           divId
         );
 
         if (slot) {
-          // Apply size mapping and add service exactly like HTML
+          // Store reference to current slot for cleanup
+          currentSlot.current = slot;
+          
+          // Apply size mapping and add service
           const slotWithMapping = slot as {
             defineSizeMapping: (mapping: unknown) => typeof slotWithMapping;
             addService: (service: unknown) => void;
           };
           slotWithMapping.defineSizeMapping(mapping).addService(window.googletag.pubads());
-          
-          // Enable lazy loading like the HTML
-          window.googletag.pubads().enableLazyLoad({
-            fetchMarginPercent: 100,
-            renderMarginPercent: 50,
-            mobileScaling: 2.0
-          });
 
-          // Collapse empty divs like the HTML
+          // Collapse empty divs
           window.googletag.pubads().collapseEmptyDivs();
           
           // Add event listeners for debugging
@@ -117,12 +118,16 @@ export default function Ads() {
           if (pubads.addEventListener) {
             pubads.addEventListener('slotRequested', (event: unknown) => {
               const slotEvent = event as { slot: { getSlotElementId: () => string } };
-              console.log('📡 Ad slot requested:', slotEvent.slot.getSlotElementId());
+              if (slotEvent.slot.getSlotElementId() === divId) {
+                console.log('📡 Ad slot requested:', slotEvent.slot.getSlotElementId());
+              }
             });
             
             pubads.addEventListener('slotResponseReceived', (event: unknown) => {
               const slotEvent = event as { slot: { getSlotElementId: () => string } };
-              console.log('📨 Ad response received:', slotEvent.slot.getSlotElementId());
+              if (slotEvent.slot.getSlotElementId() === divId) {
+                console.log('📨 Ad response received:', slotEvent.slot.getSlotElementId());
+              }
             });
             
             pubads.addEventListener('slotRenderEnded', (event: unknown) => {
@@ -130,22 +135,24 @@ export default function Ads() {
                 slot: { getSlotElementId: () => string }; 
                 isEmpty: boolean 
               };
-              console.log('🎯 Ad render ended:', slotEvent.slot.getSlotElementId(), 'Empty:', slotEvent.isEmpty);
-              if (slotEvent.isEmpty) {
-                console.warn('⚠️ Ad slot is empty - no ad was served');
-                setAdStatus("empty");
-              } else {
-                console.log('✅ Ad successfully rendered');
-                setAdStatus("loaded");
+              if (slotEvent.slot.getSlotElementId() === divId) {
+                console.log('🎯 Ad render ended:', slotEvent.slot.getSlotElementId(), 'Empty:', slotEvent.isEmpty);
+                if (slotEvent.isEmpty) {
+                  console.warn('⚠️ Ad slot is empty - no ad was served');
+                  setAdStatus("empty");
+                } else {
+                  console.log('✅ Ad successfully rendered');
+                  setAdStatus("loaded");
+                }
               }
             });
           }
 
-          // Enable services and display exactly like HTML
+          // Enable services and display
           window.googletag.enableServices();
           window.googletag.display(divId);
           isInitialized.current = true;
-          console.log("✅ Google Ad Manager ad slot created and displayed (HTML Reference)");
+          console.log(`✅ Google Ad Manager ad slot created and displayed for: ${divId}`);
           
         } else {
           console.error("❌ Failed to create ad slot");
@@ -157,17 +164,32 @@ export default function Ads() {
       }
     });
 
-    // Cleanup function
+    // Cleanup function - destroy slot when component unmounts
     return () => {
-      console.log("🧹 Component cleanup");
+      console.log(`🧹 Component cleanup for: ${divId}`);
+      
+      if (currentSlot.current && window.googletag) {
+        try {
+          window.googletag.cmd.push(() => {
+            window.googletag.destroySlots([currentSlot.current]);
+            console.log(`🗑️ Destroyed ad slot: ${divId}`);
+          });
+        } catch (error) {
+          console.warn("⚠️ Error destroying ad slot:", error);
+        }
+      }
+      
+      // Reset initialization flag
+      isInitialized.current = false;
+      currentSlot.current = null;
     };
-  }, []);
+  }, [pathname, divId, adUnitPath, sizes]);
 
   return (
-    <div className="ad-container" style={{ margin: "10px 0" }}>
+    <div className={`ad-container ${className}`} style={{ margin: "10px 0", ...style }}>
       <div
         ref={adRef}
-        id="div-gpt-ad-1747205351334-0"
+        id={divId}
         style={{ 
           minWidth: "300px", 
           minHeight: "90px", 
@@ -199,7 +221,7 @@ export default function Ads() {
       {/* Debug info */}
       {process.env.NODE_ENV === 'development' && (
         <div style={{ fontSize: "10px", color: "#999", marginTop: "5px", textAlign: "center" }}>
-          Status: {adStatus} | Ad Unit: /23308471723/bimbgames-one-BANNER-1
+          Status: {adStatus} | Ad Unit: {adUnitPath} | ID: {divId}
         </div>
       )}
     </div>
