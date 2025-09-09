@@ -16,6 +16,12 @@ module.exports = {
   },
 };
 
+// next.config.js
+module.exports = {
+  reactStrictMode: false,
+};
+
+
 
 module.exports = NextConfig;
 

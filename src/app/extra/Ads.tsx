@@ -64,7 +64,7 @@ export default function Ads({
   const currentSlot = useRef<unknown>(null);
   const [adStatus, setAdStatus] = useState("loading");
 
-  // 🔑 Use one global ID so only one ad div exists
+  // ✅ Stable ID (singleton ad container)
   const divId = "div-gpt-ad-singleton";
 
   useEffect(() => {
@@ -82,19 +82,17 @@ export default function Ads({
     window.googletag = window.googletag || { cmd: [] };
 
     window.googletag.cmd.push(() => {
-        try {
-          const pubads = window.googletag.pubads();
+      try {
+        const pubads = window.googletag.pubads();
         if (pubads.getSlots) {
           const allSlots = pubads.getSlots();
-          if (allSlots && allSlots.length > 0) {
+          if (allSlots.length > 0) {
             window.googletag.destroySlots(allSlots);
-            console.log(`��️ Destroyed ${allSlots.length} old slots`);
+            console.log(`🗑️ Destroyed ${allSlots.length} old slots`);
           }
         }
 
-        // Clear the div content
-        const adElement = document.getElementById(divId);
-        if (adElement) adElement.innerHTML = "";
+        // ❌ Removed innerHTML clearing (caused removeChild error)
 
         // Create responsive size mapping
         const sizeMappingBuilder = window.googletag.sizeMapping() as {
@@ -121,10 +119,8 @@ export default function Ads({
             .defineSizeMapping(mapping)
             .addService(window.googletag.pubads());
 
-          // Collapse empty divs
           window.googletag.pubads().collapseEmptyDivs();
 
-          // Add event listeners
           const pubads = window.googletag.pubads();
           if (pubads.addEventListener) {
             pubads.addEventListener("slotRenderEnded", (event: unknown) => {
@@ -139,7 +135,6 @@ export default function Ads({
             });
           }
 
-          // Enable and display
           window.googletag.enableServices();
           window.googletag.display(divId);
           console.log(`✅ Ad slot created and displayed`);
@@ -153,7 +148,6 @@ export default function Ads({
       }
     });
 
-    // Cleanup not needed → because new slot always destroys old ones
     return () => {
       console.log(`🧹 Ads component unmounted`);
     };
