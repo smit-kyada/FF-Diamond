@@ -79,6 +79,24 @@ export default async function CharacterPage({
           </div>
         </div>
       </div>
+
+      {/* Pet Information */}
+      <div className="px-4">
+        <div className="bg-gradient-to-r from-pink-500/20 to-purple-500/20 p-4 rounded-lg border border-pink-500/30 mb-4">
+          <h3 className="text-white font-bold text-lg mb-3">🐾 {tool.name} Pet Details</h3>
+          <p className="text-gray-300 text-sm leading-relaxed mb-3">
+            {tool.name} is a loyal companion in Free Fire that provides valuable abilities to help you survive and dominate the battlefield. Each pet has unique skills that activate automatically during gameplay.
+          </p>
+          <p className="text-gray-300 text-sm leading-relaxed mb-3">
+            Pet abilities in Free Fire range from defensive skills like armor protection and healing to offensive boosts like increased damage and faster reload times. Some pets provide utility benefits like faster looting or increased inventory space.
+          </p>
+          <p className="text-gray-300 text-sm leading-relaxed">
+            Choose {tool.name} as your companion to gain tactical advantages in battle. Whether you prefer aggressive combat or defensive survival, this pet will help you achieve victory in Free Fire matches!
+          </p>
+        </div>
+      </div>
+
+      
     </div>
   );
 }

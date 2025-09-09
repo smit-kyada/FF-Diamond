@@ -22,6 +22,15 @@ export default function CharatersPage() {
       {/* <RewardedAd /> */}
       <BackHeader title="Emotes" />
 
+      {/* Emotes Description */}
+      <div className="text-center px-4">
+        <h2 className="text-xl font-bold text-white mb-2">Free Fire Emotes</h2>
+        <p className="text-gray-300 text-sm leading-relaxed">
+          Express yourself with fun and unique emotes in Free Fire. 
+          Show off your personality with dance moves, gestures, and special animations.
+        </p>
+      </div>
+
       <Ads />
 
       <div className="grid grid-cols-2 gap-4 pb-10">
@@ -51,6 +60,25 @@ export default function CharatersPage() {
           </div>
           //   </Link>
         ))}
+      </div>
+
+      {/* Free Fire Emotes Information */}
+      <div className="px-4 pt-8">
+        <div className="bg-gradient-to-r from-yellow-500/20 to-orange-500/20 p-4 rounded-lg border border-yellow-500/30">
+          <h3 className="text-white font-bold text-lg mb-3">💃 Free Fire Emotes & Expressions</h3>
+          <p className="text-gray-300 text-sm leading-relaxed mb-3">
+            Emotes in Free Fire allow players to express their personality and celebrate victories in style. From dance moves to gestures, emotes add fun and personality to your gameplay experience.
+          </p>
+          <p className="text-gray-300 text-sm leading-relaxed mb-3">
+            Popular emotes include the Baby Shark dance, Battle Dance for celebrations, and Hello gesture for friendly interactions. Each emote has unique animations and can be used strategically to communicate with teammates.
+          </p>
+          <p className="text-gray-300 text-sm leading-relaxed mb-3">
+            Emotes can be used to taunt opponents, celebrate eliminations, or simply have fun with friends. Some emotes are rare and highly sought after, making them valuable collectibles in the Free Fire universe.
+          </p>
+          <p className="text-gray-300 text-sm leading-relaxed">
+            Mastering the art of emoting can boost team morale and intimidate opponents. Use emotes wisely to show your confidence and make your mark on the battlefield with style and flair!
+          </p>
+        </div>
       </div>
     </div>
   );

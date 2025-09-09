@@ -61,6 +61,24 @@ export default async function CharacterPage({
           </div>
         </div>
       </div>
+      
+      {/* Emote Information */}
+      <div className="px-4">
+        <div className="bg-gradient-to-r from-yellow-500/20 to-orange-500/20 p-4 rounded-lg border border-yellow-500/30 mb-4">
+          <h3 className="text-white font-bold text-lg mb-3">💃 {tool.name} Emote Details</h3>
+          <p className="text-gray-300 text-sm leading-relaxed mb-3">
+            The {tool.name} emote is a fun and expressive animation that allows you to show your personality in Free Fire. Emotes are perfect for celebrating victories, taunting opponents, or simply having fun with friends.
+          </p>
+          <p className="text-gray-300 text-sm leading-relaxed mb-3">
+            Each emote in Free Fire has unique animations and timing. Some emotes are rare and highly sought after, making them valuable collectibles that showcase your dedication to the game.
+          </p>
+          <p className="text-gray-300 text-sm leading-relaxed">
+            Use the {tool.name} emote strategically to boost team morale, intimidate enemies, or celebrate your achievements in style. Master the art of emoting to make your mark on the battlefield!
+          </p>
+        </div>
+      </div>
+
+      
     </div>
   );
 }

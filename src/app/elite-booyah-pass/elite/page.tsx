@@ -26,6 +26,16 @@ export default function elitePage() {
 
       <Ads />
 
+      {/* Elite Description */}
+      <div className="px-4">
+        <div className="bg-gradient-to-r from-purple-500/20 to-pink-500/20 p-4 rounded-lg border border-purple-500/30 mb-4">
+          <h3 className="text-white font-bold text-lg mb-3">👑 Free Fire Elite Pass</h3>
+          <p className="text-gray-300 text-sm leading-relaxed">
+            The Elite Pass provides premium rewards and exclusive content for Free Fire players. Access special skins, accessories, and unique items that demonstrate your elite status in the game.
+          </p>
+        </div>
+      </div>
+
       {tools.map((tool, index) => (
         <div
           key={index}
@@ -57,6 +67,28 @@ export default function elitePage() {
           </Link>
         </div>
       ))}
+
+      {/* Free Fire Elite Pass Information */}
+      <div className="px-4">
+        <div className="bg-gradient-to-r from-purple-500/20 to-pink-500/20 p-4 rounded-lg border border-purple-500/30">
+          <h3 className="text-white font-bold text-lg mb-3">👑 Free Fire Elite Pass Benefits</h3>
+          <p className="text-gray-300 text-sm leading-relaxed mb-3">
+            The Free Fire Elite Pass is a premium subscription service that offers exclusive rewards and benefits for dedicated players. Elite Pass holders gain access to special content, exclusive items, and unique features that enhance their gaming experience.
+          </p>
+          <p className="text-gray-300 text-sm leading-relaxed mb-3">
+            Elite Pass rewards include exclusive character skins, accessories like backpacks and hats, special emotes, vehicle skins, pet skins, vouchers for Luck Royale, personalized avatars and banners, and tokens for redeeming exclusive rewards.
+          </p>
+          <p className="text-gray-300 text-sm leading-relaxed mb-3">
+            The Elite Pass system provides a comprehensive progression experience where players unlock rewards through gameplay and achievements. Each tier offers increasingly valuable items, with the highest tiers providing legendary skins and exclusive effects.
+          </p>
+          <p className="text-gray-300 text-sm leading-relaxed mb-3">
+            Elite Pass holders also receive special privileges such as priority access to new content, exclusive events, and special bonuses. The pass is designed to provide maximum value for players who want to enhance their Free Fire experience with premium content.
+          </p>
+          <p className="text-gray-300 text-sm leading-relaxed">
+            The Elite Pass represents the ultimate Free Fire experience, offering exclusive content and benefits that showcase your dedication to the game. Join the elite community and unlock premium rewards that set you apart from other players!
+          </p>
+        </div>
+      </div>
     </div>
   );
 }

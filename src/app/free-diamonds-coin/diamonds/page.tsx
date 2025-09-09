@@ -23,6 +23,16 @@ export default function ToolsPage() {
 
       <Ads />
 
+      {/* Diamonds Description */}
+      <div className="px-4">
+        <div className="bg-gradient-to-r from-pink-500/20 to-purple-500/20 p-4 rounded-lg border border-pink-500/30 mb-4">
+          <h3 className="text-white font-bold text-lg mb-3">💎 Free Fire Diamonds</h3>
+          <p className="text-gray-300 text-sm leading-relaxed">
+            Free Fire diamonds are the premium currency that unlocks exclusive content and features. Each diamond package offers different amounts to help you access the game's most valuable items and experiences.
+          </p>
+        </div>
+      </div>
+
       <div className="grid grid-cols-2 justify-between mt-6 gap-x-9 gap-y-6">
         {tools.map((tool) => (
           <div key={tool.name}>
@@ -51,6 +61,28 @@ export default function ToolsPage() {
             </Link>
           </div>
         ))}
+      </div>
+
+      {/* Free Fire Diamonds Information */}
+      <div className="px-4">
+        <div className="bg-gradient-to-r from-purple-500/20 to-pink-500/20 p-4 rounded-lg border border-purple-500/30">
+          <h3 className="text-white font-bold text-lg mb-3">💎 Free Fire Diamond Economy</h3>
+          <p className="text-gray-300 text-sm leading-relaxed mb-3">
+            Free Fire diamonds are the most valuable currency in the game, providing access to exclusive content, premium items, and special features. Diamonds unlock the game's most sought-after character skins, weapon skins, and limited-time events.
+          </p>
+          <p className="text-gray-300 text-sm leading-relaxed mb-3">
+            The diamond system offers various packages ranging from small amounts for casual purchases to large bundles for dedicated players. Each package provides excellent value and can be used to purchase items from the premium store, participate in exclusive events, or access special game modes.
+          </p>
+          <p className="text-gray-300 text-sm leading-relaxed mb-3">
+            Diamonds can be used to purchase exclusive character bundles, legendary weapon skins, vehicle skins, emotes, and special event items. They also provide access to premium crates, lucky draws, and seasonal events that offer rare and unique rewards.
+          </p>
+          <p className="text-gray-300 text-sm leading-relaxed mb-3">
+            The Free Fire diamond economy is designed to provide fair value for your investment, with regular promotions, bonus diamonds, and special offers that maximize your purchasing power. Players can also earn diamonds through gameplay achievements, daily missions, and special events.
+          </p>
+          <p className="text-gray-300 text-sm leading-relaxed">
+            Whether you're looking to customize your character with exclusive skins, acquire powerful weapon skins, or participate in limited-time events, Free Fire diamonds give you the ultimate flexibility to enhance your gaming experience and showcase your style on the battlefield!
+          </p>
+        </div>
       </div>
     </div>
   );

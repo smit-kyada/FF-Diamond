@@ -24,6 +24,15 @@ export default function HomePage() {
             />
           </div>
 
+          {/* Welcome Section */}
+          <div className="text-center px-4">
+            <h1 className="text-2xl font-bold text-white mb-2">FF Diamond Tool</h1>
+            <p className="text-gray-300 text-sm leading-relaxed">
+              Unlock exclusive Free Fire character skins, weapons, pets, and emotes. 
+              Get free diamonds and coins to enhance your gaming experience!
+            </p>
+          </div>
+
           {/* Ad Banner */}
           <Ads />
 
@@ -44,6 +53,25 @@ export default function HomePage() {
             <Link href="/free-diamonds-coin">
               <img src="/resources/buttons/coin-home.png" className="w-full" />
             </Link>
+          </div>
+
+          {/* Free Fire Information Section */}
+          <div className="px-4 pt-8">
+            <div className="bg-gradient-to-r from-orange-500/20 to-red-500/20 p-4 rounded-lg border border-orange-500/30">
+              <h3 className="text-white font-bold text-lg mb-3">🔥 Free Fire Battle Royale</h3>
+              <p className="text-gray-300 text-sm leading-relaxed mb-3">
+                Free Fire is the ultimate survival shooter game available on mobile. Each 10-minute game places you on a remote island where you are pit against 49 other players, all seeking survival.
+              </p>
+              <p className="text-gray-300 text-sm leading-relaxed mb-3">
+                Players freely choose their starting point with their parachute, and aim to stay in the safe zone for as long as possible. Drive vehicles to explore the vast map, hide in trenches, or become invisible by proning under grass or rifts.
+              </p>
+              <p className="text-gray-300 text-sm leading-relaxed mb-3">
+                Search for weapons, stay in the play zone, loot your enemies and become the last man standing. Along the way, go for legendary airdrops while avoiding airstrikes to gain that little edge against other players.
+              </p>
+              <p className="text-gray-300 text-sm leading-relaxed">
+                With over 1 billion downloads, Free Fire has become one of the most popular mobile battle royale games worldwide, featuring unique characters with special abilities and a wide variety of weapons and equipment.
+              </p>
+            </div>
           </div>
 
           {/* Disclaimer Link */}

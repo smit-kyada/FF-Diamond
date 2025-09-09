@@ -23,6 +23,16 @@ export default function rewardPage() {
 
       <Ads />
 
+      {/* Reward Description */}
+      <div className="px-4">
+        <div className="bg-gradient-to-r from-green-500/20 to-emerald-500/20 p-4 rounded-lg border border-green-500/30 mb-4">
+          <h3 className="text-white font-bold text-lg mb-3">🎁 Free Fire Rewards</h3>
+          <p className="text-gray-300 text-sm leading-relaxed">
+            Free Fire rewards system offers various items and skins to enhance your gameplay experience. Unlock exclusive content through gameplay achievements and special events.
+          </p>
+        </div>
+      </div>
+
       {tools.map((tool, index) => (
         <div
           key={index}
@@ -54,6 +64,28 @@ export default function rewardPage() {
           </Link>
         </div>
       ))}
+
+      {/* Free Fire Rewards Information */}
+      <div className="px-4">
+        <div className="bg-gradient-to-r from-emerald-500/20 to-green-500/20 p-4 rounded-lg border border-emerald-500/30">
+          <h3 className="text-white font-bold text-lg mb-3">🎁 Free Fire Reward System</h3>
+          <p className="text-gray-300 text-sm leading-relaxed mb-3">
+            The Free Fire reward system provides players with various ways to earn exclusive items, skins, and content through gameplay achievements and special events. Rewards include weapon skins, vehicle skins, emotes, backpack skins, pet skins, and special character outfits.
+          </p>
+          <p className="text-gray-300 text-sm leading-relaxed mb-3">
+            Players can earn rewards through daily missions, weekly challenges, seasonal events, and special tournaments. Each reward type offers unique benefits and customization options that enhance your character's appearance and gameplay experience.
+          </p>
+          <p className="text-gray-300 text-sm leading-relaxed mb-3">
+            Weapon skins provide visual enhancements and sometimes special effects, while vehicle skins allow you to customize your transportation in the game. Emotes add personality to your character, and backpack skins offer both style and functionality.
+          </p>
+          <p className="text-gray-300 text-sm leading-relaxed mb-3">
+            Pet skins and character outfits are among the most sought-after rewards, offering unique appearances that set you apart from other players. These rewards are often limited-time exclusives that showcase your dedication and achievements in the game.
+          </p>
+          <p className="text-gray-300 text-sm leading-relaxed">
+            The Free Fire reward system encourages active gameplay and provides continuous motivation for players to improve their skills and participate in various game modes. Earn rewards, customize your character, and showcase your achievements in the ultimate battle royale experience!
+          </p>
+        </div>
+      </div>
     </div>
   );
 }

@@ -60,30 +60,53 @@ export default function DisclaimerPage() {
       </nav>
 
       <div className="flex flex-col text-white gap-6 mx-auto h-max w-[360px] pb-10 pt-[100px] font-medium">
-        <div className="font-bold">Disclaimer :</div>
-        <div>
-          This is not an official website. This website is developed purely for
-          entertainment and fun.
+        <div className="font-bold text-xl">Disclaimer</div>
+        
+        <div className="bg-gray-800/50 p-4 rounded-lg">
+          <div className="font-semibold mb-2">Important Notice:</div>
+          <div>
+            This is not an official Free Fire website. This website is developed purely for
+            entertainment and educational purposes.
+          </div>
         </div>
+
         <div>
-          If you have any suggestions or issues with this web then please
-          contact us.
+          <div className="font-semibold mb-2">About This Website:</div>
+          <div>
+            This is a guide and informative website that helps you learn about
+            Free Fire characters, weapons, pets, emotes, and game strategies to improve your gameplay.
+          </div>
         </div>
+
         <div>
-          This is a guide and informative website that helps you to get
-          Diamonds, skins, emotes and improve your game.
+          <div className="font-semibold mb-2">Privacy & Data:</div>
+          <div>We don't collect any user personal information. Your privacy is important to us.</div>
         </div>
-        <div>We don’t collect any user personal information.</div>
+
         <div>
-          All images on the website are sourced from public domains. These
-          images are not endorsed by their respective owners and are used solely
-          for informational and entertainment purposes.
+          <div className="font-semibold mb-2">Content & Images:</div>
+          <div>
+            All images and content on the website are sourced from public domains. These
+            materials are not endorsed by their respective owners and are used solely
+            for informational and entertainment purposes.
+          </div>
         </div>
+
+        <div className="bg-red-900/30 p-4 rounded-lg border border-red-500/30">
+          <div className="font-semibold mb-2 text-red-300">Legal Notice:</div>
+          <div>
+            We are not providing any cheats, hacks, or unauthorized modifications of any games or apps. 
+            This website is not associated with Garena or any official Free Fire entities. 
+            All property rights are owned by their respective holders.
+          </div>
+        </div>
+
         <div>
-          We are not collecting any information and we are not providing any
-          cheats or hacks of any games or apps. This website is not associated
-          with any game or company. All property rights are owned by their
-          respective holders.
+          <div className="font-semibold mb-2">Contact & Support:</div>
+          <div>
+            If you have any suggestions, issues, or questions about this website, please
+            feel free to contact us through our support channels.
+          </div>
         </div>
       </div>
     </div>

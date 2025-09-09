@@ -287,6 +287,21 @@ export default async function CharacterPage({
           </div>
         </div>
       </div>
+      {/* Character Information */}
+      <div className="px-4">
+        <div className="bg-gradient-to-r from-green-500/20 to-teal-500/20 p-4 rounded-lg border border-green-500/30 mb-4">
+          <h3 className="text-white font-bold text-lg mb-3">👤 {tool.name} Character Details</h3>
+          <p className="text-gray-300 text-sm leading-relaxed mb-3">
+            {tool.name} is a unique character in Free Fire with special abilities that can turn the tide of battle. Each character brings their own strategic advantages to help you survive and dominate the battlefield.
+          </p>
+          <p className="text-gray-300 text-sm leading-relaxed mb-3">
+            Character abilities in Free Fire range from healing and support skills to offensive and defensive powers. Understanding your character's strengths and weaknesses is crucial for developing effective strategies.
+          </p>
+          <p className="text-gray-300 text-sm leading-relaxed">
+            Master {tool.name}'s abilities and combine them with the right weapons and tactics to achieve victory in Free Fire's intense battle royale matches!
+          </p>
+        </div>
+      </div>
     </div>
   );
   //   return (

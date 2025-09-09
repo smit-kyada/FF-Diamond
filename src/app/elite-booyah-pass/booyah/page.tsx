@@ -25,6 +25,16 @@ export default function booyahPage() {
 
       <Ads />
 
+      {/* Booyah Description */}
+      <div className="px-4">
+        <div className="bg-gradient-to-r from-blue-500/20 to-cyan-500/20 p-4 rounded-lg border border-blue-500/30 mb-4">
+          <h3 className="text-white font-bold text-lg mb-3">🎉 Free Fire Booyah Pass</h3>
+          <p className="text-gray-300 text-sm leading-relaxed">
+            The Booyah Pass offers exclusive rewards and premium content for Free Fire players. Unlock special skins, emotes, and unique items that showcase your dedication to the game.
+          </p>
+        </div>
+      </div>
+
       {tools.map((tool, index) => (
         <div
           key={index}
@@ -56,6 +66,28 @@ export default function booyahPage() {
           </Link>
         </div>
       ))}
+
+      {/* Free Fire Booyah Pass Information */}
+      <div className="px-4">
+        <div className="bg-gradient-to-r from-cyan-500/20 to-blue-500/20 p-4 rounded-lg border border-cyan-500/30">
+          <h3 className="text-white font-bold text-lg mb-3">🎉 Free Fire Booyah Pass Rewards</h3>
+          <p className="text-gray-300 text-sm leading-relaxed mb-3">
+            The Free Fire Booyah Pass is a premium battle pass system that offers exclusive rewards and content for dedicated players. Each season brings new challenges, missions, and unique items that can only be obtained through the Booyah Pass.
+          </p>
+          <p className="text-gray-300 text-sm leading-relaxed mb-3">
+            Booyah Pass rewards include exclusive character skins, weapon skins, vehicle skins, emotes, backpack skins, pet skins, and profile decorations. These items are designed to make your character stand out and showcase your achievements in the game.
+          </p>
+          <p className="text-gray-300 text-sm leading-relaxed mb-3">
+            The pass system works through a progression mechanism where players complete daily and weekly missions to earn experience points and unlock rewards. Higher tiers offer more exclusive and valuable items, including legendary skins and special effects.
+          </p>
+          <p className="text-gray-300 text-sm leading-relaxed mb-3">
+            Booyah Crates are special mystery boxes that contain exclusive items and can only be obtained through the Booyah Pass. These crates offer a chance to win rare and legendary items that are not available through any other means in the game.
+          </p>
+          <p className="text-gray-300 text-sm leading-relaxed">
+            The Booyah Pass provides excellent value for players who want to enhance their Free Fire experience with exclusive content. Each season brings fresh challenges and rewards, ensuring that the pass remains exciting and rewarding for all players!
+          </p>
+        </div>
+      </div>
     </div>
   );
 }

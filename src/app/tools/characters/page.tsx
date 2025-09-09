@@ -248,6 +248,15 @@ export default function CharatersPage() {
       {/* <RewardedAd /> */}
       <BackHeader title="Characters" />
 
+      {/* Characters Description */}
+      <div className="text-center px-4">
+        <h2 className="text-xl font-bold text-white mb-2">Free Fire Characters</h2>
+        <p className="text-gray-300 text-sm leading-relaxed">
+          Choose from a wide variety of Free Fire characters, each with unique abilities and skills. 
+          Unlock exclusive character skins and enhance your gameplay with special powers.
+        </p>
+      </div>
+
       <Ads />
 
       <div className="grid grid-cols-2 gap-4 pb-10">
@@ -277,6 +286,25 @@ export default function CharatersPage() {
             </div>
         //   </Link>
         ))}
+      </div>
+
+      {/* Free Fire Characters Information */}
+      <div className="px-4 pt-8">
+        <div className="bg-gradient-to-r from-green-500/20 to-teal-500/20 p-4 rounded-lg border border-green-500/30">
+          <h3 className="text-white font-bold text-lg mb-3">👥 Free Fire Characters & Abilities</h3>
+          <p className="text-gray-300 text-sm leading-relaxed mb-3">
+            Free Fire features over 40 unique characters, each with special abilities that can change the course of battle. From healing specialists to combat experts, choosing the right character is crucial for your strategy.
+          </p>
+          <p className="text-gray-300 text-sm leading-relaxed mb-3">
+            Popular characters include Alok with his healing ability "Drop the Beat", Chrono with time manipulation powers, and K with his "Master of All" skill. Each character has different skill levels and can be upgraded using character fragments.
+          </p>
+          <p className="text-gray-300 text-sm leading-relaxed mb-3">
+            Character abilities range from passive skills that provide constant benefits to active skills with cooldown periods. Some characters excel in team play while others are perfect for solo survival.
+          </p>
+          <p className="text-gray-300 text-sm leading-relaxed">
+            Understanding each character's strengths and weaknesses will help you build the perfect team composition and dominate the battlefield. Choose wisely and adapt your playstyle to maximize your character's potential!
+          </p>
+        </div>
       </div>
     </div>
   );

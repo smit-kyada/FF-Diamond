@@ -124,6 +124,33 @@ export default async function WeaponCategoryPage({
             </div>
           ))}
         </div>
+        {/* Weapon Category Information */}
+        <div className="px-4 mb-4">
+          <div className="bg-gradient-to-r from-red-500/20 to-orange-500/20 p-4 rounded-lg border border-red-500/30">
+            <h3 className="text-white font-bold text-lg mb-3">🔫 {name.toUpperCase()} Weapons</h3>
+            <p className="text-gray-300 text-sm leading-relaxed mb-3">
+              The {name} category in Free Fire offers specialized weapons designed for specific combat situations. Each weapon type has unique characteristics that make them effective in different scenarios.
+            </p>
+            <p className="text-gray-300 text-sm leading-relaxed mb-3">
+              {name === 'rifle' && 'Assault rifles provide balanced damage and range, perfect for mid-range combat. They offer good accuracy and moderate fire rates, making them versatile weapons for most situations.'}
+              {name === 'sniper' && 'Sniper rifles excel at long-range eliminations with devastating headshot damage. They require precision and patience but can eliminate enemies from great distances.'}
+              {name === 'shotgun' && 'Shotguns dominate close-quarters combat with high damage at short range. They are perfect for aggressive playstyles and indoor battles.'}
+              {name === 'pistol' && 'Pistols are reliable sidearms with good mobility and decent damage. They are perfect for finishing off enemies or when primary weapons run out of ammo.'}
+              {name === 'submachinegun' && 'SMGs offer high fire rates and excellent mobility, perfect for aggressive close-range combat and fast-paced gameplay.'}
+              {name === 'machinegun' && 'Machine guns provide sustained fire with high damage output, ideal for suppressing enemies and controlling areas.'}
+              {name === 'melee' && 'Melee weapons offer silent eliminations and are perfect for stealth gameplay or when ammunition is scarce.'}
+              {name === 'launcher' && 'Launchers provide explosive damage and area control, perfect for destroying vehicles and groups of enemies.'}
+              {name === 'bow' && 'Bows offer silent long-range attacks with good damage, perfect for stealth eliminations without alerting nearby enemies.'}
+              {name === 'projectiles' && 'Projectile weapons provide tactical advantages with grenades, smoke, and special effects to control the battlefield.'}
+              {name === 'marksmanrifle' && 'Marksman rifles bridge the gap between assault rifles and sniper rifles, offering good range and damage for medium to long-range combat.'}
+            </p>
+            <p className="text-gray-300 text-sm leading-relaxed">
+              Master the {name} weapon category to gain tactical advantages in Free Fire. Understanding weapon characteristics and choosing the right loadout for your playstyle will give you the edge in battle!
+            </p>
+          </div>
+        </div>
+
+        
       </div>
     </>
   );

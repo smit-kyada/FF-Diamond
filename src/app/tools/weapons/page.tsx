@@ -34,6 +34,15 @@ export default function WeaponsPage() {
       {/* <RewardedAd /> */}
       <BackHeader title="Weapons" />
 
+      {/* Weapons Description */}
+      <div className="text-center px-4">
+        <h2 className="text-xl font-bold text-white mb-2">Free Fire Weapons</h2>
+        <p className="text-gray-300 text-sm leading-relaxed">
+          Discover powerful weapons from different categories including rifles, snipers, shotguns, and more. 
+          Each weapon has unique stats and characteristics to dominate the battlefield.
+        </p>
+      </div>
+
       <Ads />
 
       <div className="flex flex-col gap-4 pb-10">
@@ -47,6 +56,25 @@ export default function WeaponsPage() {
             <BackTools title={tool.name} image={tool.image} />
           </div>
         ))}
+      </div>
+
+      {/* Free Fire Weapons Information */}
+      <div className="px-4 pt-8">
+        <div className="bg-gradient-to-r from-red-500/20 to-orange-500/20 p-4 rounded-lg border border-red-500/30">
+          <h3 className="text-white font-bold text-lg mb-3">🔫 Free Fire Weapons & Arsenal</h3>
+          <p className="text-gray-300 text-sm leading-relaxed mb-3">
+            Free Fire offers a vast arsenal of weapons across multiple categories, each designed for different combat situations. From close-range shotguns to long-range sniper rifles, mastering weapon selection is key to survival.
+          </p>
+          <p className="text-gray-300 text-sm leading-relaxed mb-3">
+            Assault rifles like the M4A1 and AK47 provide balanced damage and range, perfect for mid-range combat. Sniper rifles such as the AWM and M24 excel at long-range eliminations with devastating headshot damage.
+          </p>
+          <p className="text-gray-300 text-sm leading-relaxed mb-3">
+            Shotguns like the M1014 and SPAS12 dominate close-quarters combat, while SMGs offer high fire rates for aggressive playstyles. Each weapon has unique stats including damage, range, fire rate, and reload speed.
+          </p>
+          <p className="text-gray-300 text-sm leading-relaxed">
+            Weapon attachments like scopes, silencers, and extended magazines can significantly improve performance. Understanding weapon characteristics and choosing the right loadout for your playstyle will give you the edge in battle!
+          </p>
+        </div>
       </div>
     </div>
   );
