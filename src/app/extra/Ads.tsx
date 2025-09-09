@@ -82,13 +82,13 @@ export default function Ads({
     window.googletag = window.googletag || { cmd: [] };
 
     window.googletag.cmd.push(() => {
-      try {
-        // 🗑️ Always destroy all existing slots before creating a new one
-        if (window.googletag.pubads().getSlots) {
-          const allSlots = window.googletag.pubads().getSlots();
-          if (allSlots.length > 0) {
+        try {
+          const pubads = window.googletag.pubads();
+        if (pubads.getSlots) {
+          const allSlots = pubads.getSlots();
+          if (allSlots && allSlots.length > 0) {
             window.googletag.destroySlots(allSlots);
-            console.log(`🗑️ Destroyed ${allSlots.length} old slots`);
+            console.log(`��️ Destroyed ${allSlots.length} old slots`);
           }
         }
 
