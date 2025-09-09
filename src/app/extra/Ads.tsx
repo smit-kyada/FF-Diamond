@@ -71,7 +71,7 @@ export default function Ads() {
           // Define and display slot
           window.googletag
             .defineSlot(
-              "/23308471723/100007-BANNER-1",
+              "/23308471723/bimbgames-one-BANNER-1",
               [
                 [300, 250],
                 [336, 280],
