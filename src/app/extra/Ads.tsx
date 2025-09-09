@@ -76,9 +76,10 @@ export default function Ads({
     window.googletag.cmd.push(() => {
       try {
         // Destroy all previous slots before making new one
-        if (window.googletag.pubads().getSlots) {
-          const allSlots = window.googletag.pubads().getSlots();
-          if (allSlots.length > 0) {
+        const pubads = window.googletag.pubads();
+        if (pubads.getSlots) {
+          const allSlots = pubads.getSlots();
+          if (allSlots && allSlots.length > 0) {
             window.googletag.destroySlots(allSlots);
             console.log(`🗑️ Destroyed ${allSlots.length} old slots`);
           }
