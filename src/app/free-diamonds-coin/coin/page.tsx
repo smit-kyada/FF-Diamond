@@ -3,6 +3,7 @@ import Ads from "@/app/extra/Ads";
 // app/tools/page.tsx
 import BackHeader from "../../BackHeader";
 import Link from "next/link";
+import Image from "next/image";
 // import RewardedAd from "../../extra/RewardedAd";
 
 export default function ToolsPage() {
@@ -37,10 +38,13 @@ export default function ToolsPage() {
           <div key={tool.name}>
             <Link href="/players/">
               <div>
-                <img
+                <Image
                   className="w-full object-contain"
                   alt="diamond"
                   src={tool.name}
+                  width={200}
+                  height={200}
+                  unoptimized
                 />
               </div>
             </Link>

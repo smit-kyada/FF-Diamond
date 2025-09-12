@@ -1,10 +1,43 @@
 import "./globals.css";
 import type { Metadata } from "next";
+import InterstitialAd from "./extra/InterstitialAd";
 
-// Declare gtag function for TypeScript
+// Declare gtag and googletag functions for TypeScript
 declare global {
   interface Window {
     gtag: (command: string, targetId: string, config?: Record<string, unknown>) => void;
+    googletag: {
+      cmd: Array<() => void>;
+      sizeMapping: () => {
+        addSize: (viewport: number[], sizes: number[][]) => unknown;
+        build: () => unknown;
+      };
+      pubads: () => {
+        getSlots?: () => Array<{
+          getSlotElementId: () => string;
+        }>;
+        addEventListener: (eventName: string, callback: (event: unknown) => void) => void;
+        collapseEmptyDivs: () => void;
+        addService: (slot: unknown) => void;
+        setLocation?: (location: string) => void;
+      };
+      defineSlot: (adUnitPath: string, size: number[][], divId: string) => {
+        defineSizeMapping: (mapping: unknown) => unknown;
+        addService: (service: unknown) => void;
+      };
+      defineOutOfPageSlot: (adUnitPath: string, format: string) => {
+        addService: (service: unknown) => void;
+      } | null;
+      destroySlots: (slots?: unknown[]) => void;
+      enableServices: () => void;
+      display: (divId: string | unknown) => void;
+      enums?: {
+        OutOfPageFormat: {
+          INTERSTITIAL: string;
+          REWARDED: string;
+        };
+      };
+    };
   }
 }
 
@@ -79,9 +112,15 @@ export default function RootLayout({
           `,
           }}
         />
+
+        {/* Google Publisher Tag (GPT) - Load once globally */}
+        <script
+          async
+          src="https://securepubads.g.doubleclick.net/tag/js/gpt.js"
+        />
       </head>
       <body className="body-bg">
-        
+        <InterstitialAd />
         {children}
 
         {/* Toastify container (optional) */}

@@ -1,6 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 export default function WeaponMap({
   weapon,
@@ -23,10 +24,13 @@ export default function WeaponMap({
       className="flex cursor-pointer justify-center relative"
     >
       <div className="h-28 w-full bg-transparent relative z-20">
-        <img
+        <Image
           className="h-full w-full object-contain bg-transparent"
           src={`/resources/weapons/${name}/${weapon}.png`}
           alt={weapon}
+          width={200}
+          height={112}
+          unoptimized
         />
       </div>
       <div className="z-10 absolute left-0 bottom-0 border border-white/50 bg-white/15 backdrop-blur-[6px] w-full h-[95px] rounded-2xl overflow-hidden"></div>

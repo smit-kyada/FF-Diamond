@@ -2,31 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 
-declare global {
-  interface Window {
-    googletag: {
-      cmd: Array<() => void>;
-      sizeMapping: () => {
-        addSize: (viewport: number[], sizes: number[][]) => unknown;
-        build: () => unknown;
-      };
-      pubads: () => {
-        getSlots?: () => Array<{
-          getSlotElementId: () => string;
-        }>;
-        addEventListener: (eventName: string, callback: (event: unknown) => void) => void;
-        collapseEmptyDivs: () => void;
-      };
-      defineSlot: (adUnitPath: string, size: number[][], divId: string) => {
-        defineSizeMapping: (mapping: unknown) => unknown;
-        addService: (service: unknown) => void;
-      };
-      destroySlots: (slots?: unknown[]) => void;
-      enableServices: () => void;
-      display: (divId: string) => void;
-    };
-  }
-}
+// googletag interface is now declared globally in layout.tsx
 
 interface AdsProps {
   adUnitPath?: string;
@@ -62,15 +38,6 @@ export default function Ads({
     initialized.current = true;
 
     console.log(`🚀 Initializing ad: ${adUnitPath}`);
-
-    // Load GPT script only once
-    if (!document.getElementById("gpt-script")) {
-      const script = document.createElement("script");
-      script.id = "gpt-script";
-      script.src = "https://securepubads.g.doubleclick.net/tag/js/gpt.js";
-      script.async = true;
-      document.head.appendChild(script);
-    }
 
     window.googletag = window.googletag || { cmd: [] };
 
