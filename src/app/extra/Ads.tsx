@@ -14,7 +14,6 @@ interface AdsProps {
 export default function Ads({
   adUnitPath = "/23308471723/bimbgames-one-BANNER-1",
   sizes = [
-    [300, 250],
     [336, 280],
     [780, 250],
     [750, 250],
