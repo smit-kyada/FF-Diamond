@@ -28,7 +28,7 @@ export default function InterstitialAd() {
     window.googletag.cmd.push(() => {
       try {
         const slot = window.googletag.defineOutOfPageSlot(
-          "/23308471723/gamespowerplay-com-INTER-1",
+          "/23308471723/bimbgames-one-INTER-1",
           window.googletag.enums?.OutOfPageFormat.INTERSTITIAL || "interstitial"
         );
 
